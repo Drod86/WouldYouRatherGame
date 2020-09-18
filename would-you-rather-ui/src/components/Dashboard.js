@@ -1,24 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
+import { Route } from 'react-router-dom'
+import Nav from './Nav'
+import Main from './Main'
 
 class Dashboard extends Component {
 	render() {
 	  return (
 	    <div className="Dashboard">
-	    {this.props.questionIds === undefined
-	    	? <p>Loading</p>
-	    	: <Question id={this.props.questionIds[0]} />
-	    }
+	    <Nav />
+	    <Main />
 	    </div>
 	  )
 	}
 }
 
-function mapStateToProps ({questions}) {
-	return {
-		questionIds: Object.keys(questions)
-	}
-}
-
-export default connect(mapStateToProps)(Dashboard)
+export default Dashboard

@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
 import LandingPage from './LandingPage'
 import Dashboard from './Dashboard'
+import Question from './Question'
+import { Route } from 'react-router-dom'
 
 class App extends Component {
 	componentDidMount () {
@@ -11,10 +13,13 @@ class App extends Component {
 	render() {
 	  return (
 	    <div className="App">
-	    	{this.props.loading === true
-	    		? <LandingPage />
-	    		: <Dashboard />
-	    	}
+	    <Route path='/question' component={Question} />
+		    <Route exact path='/' render={() => (
+		    	this.props.loading === true
+		    		? <LandingPage />
+		    		: <Dashboard />
+		    )} />
+
 	    </div>
 	  )
 	}

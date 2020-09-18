@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
+import { Link } from 'react-router-dom'
 
 class LandingPage extends Component {
 	state = {
@@ -38,7 +39,12 @@ class LandingPage extends Component {
 					{this.props.usersIds.map(user => <li key={user} onClick={e => this.authedUser(user)}>{this.props.users[user].name}</li>)}
 				</ul>
 				<h3>--or--</h3>
+				<Link
+					to='/question'
+					className='quick-play'
+				>
 				<button>Quick Play?</button>
+				</Link>
 			</div>
 		)
 	}

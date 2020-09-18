@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Question extends Component {
 	state = {
@@ -26,7 +27,9 @@ class Question extends Component {
 				<h3>--or--</h3>
 				<button id='Opt2'>{this.props.questions[this.props.questionIds[1]].optionTwo.text}?</button>
 				<hr/>
+				<Link to='/'>
 				<button>Final Answer</button>
+				</Link>
 			</div>
 		)
 	}
