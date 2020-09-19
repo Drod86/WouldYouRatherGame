@@ -18,9 +18,9 @@ class Question extends Component {
 	}
 
 	render() {
-		console.log(this.props.questions[this.props.questionIds[1]])
+		const quesryString = window.location
+		console.log('test', quesryString.pathname.substr(11))
 		return(
-
 			<div className='page'>
 				<h2>Would You Rather...</h2>
 				{this.props.authedUser
@@ -29,11 +29,13 @@ class Question extends Component {
 						<h3>--or--</h3>
 						<button id='Opt2'>{this.props.questions[this.props.id].optionTwo.text}?</button>
 						</div>
-					: <div>
-						<button id='Opt1'>{this.props.questions[this.props.questionIds[1]].optionOne.text}?</button>
-						<h3>--or--</h3>
-						<button id='Opt2'>{this.props.questions[this.props.questionIds[1]].optionTwo.text}?</button>
-					</div>
+					: this.props.questions[`${quesryString.pathname.substr(11)}`] === undefined
+						? null
+						: <div>
+							<button id='Opt1'>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionOne.text}</button>
+							<h3>--or--</h3>
+							<button id='Opt2'>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
+						  </div>
 				}
 				<hr/>
 				<Link to='/'>
