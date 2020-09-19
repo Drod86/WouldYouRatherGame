@@ -14,12 +14,14 @@ class App extends Component {
 	  return (
 	    <div className="App">
 	    <Route path='/question' component={Question} />
-		    <Route exact path='/' render={() => (
+		<Route exact path='/' render={() => (
 		    	this.props.loading === true
 		    		? <LandingPage />
-		    		: <Dashboard />
-		    )} />
-
+		    		: <Dashboard user={this.props.authedUser} />
+		 )} />
+		<Route path='/polls' component={Dashboard} />
+		<Route path='/add' component={Dashboard} />
+		<Route path='/leaders' component={Dashboard} />
 	    </div>
 	  )
 	}

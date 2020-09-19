@@ -23,9 +23,18 @@ class Question extends Component {
 
 			<div className='page'>
 				<h2>Would You Rather...</h2>
-				<button id='Opt1'>{this.props.questions[this.props.questionIds[1]].optionOne.text}?</button>
-				<h3>--or--</h3>
-				<button id='Opt2'>{this.props.questions[this.props.questionIds[1]].optionTwo.text}?</button>
+				{this.props.authedUser
+					? <div>
+						<button id='Opt1'>{this.props.questions[this.props.id].optionOne.text}?</button>
+						<h3>--or--</h3>
+						<button id='Opt2'>{this.props.questions[this.props.id].optionTwo.text}?</button>
+						</div>
+					: <div>
+						<button id='Opt1'>{this.props.questions[this.props.questionIds[1]].optionOne.text}?</button>
+						<h3>--or--</h3>
+						<button id='Opt2'>{this.props.questions[this.props.questionIds[1]].optionTwo.text}?</button>
+					</div>
+				}
 				<hr/>
 				<Link to='/'>
 				<button>Final Answer</button>
@@ -35,10 +44,11 @@ class Question extends Component {
 	}
 }
 
-function mapStateToProps ({ questions }, id) {
+function mapStateToProps ({ questions, authedUser }, id) {
 	return {
 		questions: questions,
 		questionIds: Object.keys(questions),
+		authedUser: authedUser,
 	}
 }
 
