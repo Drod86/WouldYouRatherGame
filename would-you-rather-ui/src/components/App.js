@@ -11,9 +11,12 @@ class App extends Component {
 		this.props.dispatch(handleInitialData())
 	}
 	render() {
+		const ranNum = () => {
+			return Math.floor(Math.random() * this.props.questionIds.length)
+		}
 	  return (
 	    <div className="App">
-	    <Route path='/question' component={Question} />
+	    <Route path='/question' render={() => <Question num={ranNum()} />} />
 		<Route exact path='/' render={() => (
 		    	this.props.loading === true
 		    		? <LandingPage />
@@ -27,9 +30,10 @@ class App extends Component {
 	}
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps ({ authedUser, questions }) {
 	return {
-		loading: authedUser === null
+		loading: authedUser === null,
+		questionIds: Object.keys(questions)
 	}
 }
 

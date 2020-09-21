@@ -9,7 +9,7 @@ class ListQuestions extends Component {
 			<h4>Pick a poll to play</h4>
 			<ul>
 				{this.props.questions.map((question) =>
-					<Link to={`/question/:${question.id}`} ><button className='questionBtn'>{question.optionOne.text}</button></Link>
+					<Link to={`/question/:${question.id}`} key={question.id} ><button className='questionBtn'>{question.optionOne.text}</button></Link>
 					)
 				}
 			</ul>
