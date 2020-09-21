@@ -7,13 +7,12 @@ export default function users (state = {}, action) {
 				...state,
 				...action.users
 			}
-			break;
 		case ADD_USER_ANSWER :
 			return {
 				...state,
 				users: {
 					...state.users,
-					[action.uId] : {
+				[action.uId] : {
 						...state.users.[action.uId],
 						answers: {
 							...state.users.[action.uId].answers, ...action.answers
