@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Nav from './Nav'
 import ListQuestions from './ListQuestions'
 import HowTo from './HowTo'

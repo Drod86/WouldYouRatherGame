@@ -1,3 +1,4 @@
+import {saveAnswer} from '../utils/api'
 export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const ADD_USER_ANSWER = 'ADD_USER_ANSWER'
 
@@ -8,11 +9,22 @@ export function receiveUsers (users) {
 	}
 }
 
-export function addUserAnswer (uId, qId, opt) {
+export function addUserAnswer (authedUser, qid, answer) {
 	return {
 		type: ADD_USER_ANSWER,
-		uId,
-		qId,
-		opt
+		authedUser,
+		qid,
+		answer
 	}
+}
+
+export function handleAnswer (authedUser, qid, answer) {
+    return (dispatch) => {
+        return saveAnswer({authedUser, qid, answer})
+            .catch(() => {
+                alert('Answer not saved, submit again.')
+            }).then(() => {
+                dispatch(addUserAnswer(authedUser, qid, answer))
+            })
+    }
 }

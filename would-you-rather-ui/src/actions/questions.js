@@ -7,3 +7,9 @@ export function receiveQuestions (questions) {
 		questions,
 	}
 }
+
+export function addQuestion (id, optOne, optTwo) {
+    return {
+
+    }
+}

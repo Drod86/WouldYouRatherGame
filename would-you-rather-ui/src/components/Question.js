@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addUserAnswer } from '../actions/users'
+import { handleAnswer, addUserAnswer } from '../actions/users'
 
 class Question extends Component {
 	state = {
