@@ -3,11 +3,18 @@ import { connect } from 'react-redux'
 
 class UserInfo extends Component {
     render(){
+        const user = this.props.users[this.props.id.id]
+        const url = user.avatarURL
         return(
             <div>
             {this.props.users === undefined
                 ? <p>Loading...</p>
-                : <img alt='avatar' src='' />
+                : <span>
+                    <img alt='avatar' src={url} />
+                    <h4>{user.name}</h4>
+                    <h4>Answered: {Object.keys(user.answers).length}</h4>
+                    <h4>Added: {Object.keys(user.questions).length}</h4>
+                  </span>
             }
             </div>
         )
@@ -16,8 +23,8 @@ class UserInfo extends Component {
 
 function mapStateToProps({users}, id){
     return {
-        users: users,
-        id: id
+        users,
+        id,
     }
 }
 

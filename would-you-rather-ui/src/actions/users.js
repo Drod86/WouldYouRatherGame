@@ -12,6 +12,7 @@ export function addUserAnswer (uId, qId, opt) {
 	return {
 		type: ADD_USER_ANSWER,
 		uId,
-		answers: {qId: opt},
+		qId,
+		opt
 	}
 }

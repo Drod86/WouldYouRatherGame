@@ -10,13 +10,11 @@ export default function users (state = {}, action) {
 		case ADD_USER_ANSWER :
 			return {
 				...state,
-				users: {
-					...state.users,
-				[action.uId] : {
-						...state.users.[action.uId],
-						answers: {
-							...state.users.[action.uId].answers, ...action.answers
-						}
+				[action.uId]: {
+					...state.[action.uId],
+					answers: {
+						...state.[action.uId].answers,
+						[action.qId]: action.opt
 					}
 				}
 			}

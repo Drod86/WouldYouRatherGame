@@ -50,7 +50,7 @@ class LandingPage extends Component {
 	}
 }
 
-function mapStateToProps( { users }){
+function mapStateToProps({ users }){
 	return {
 		users: users,
 		usersIds: Object.keys(users)

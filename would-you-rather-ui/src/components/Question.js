@@ -9,28 +9,27 @@ class Question extends Component {
 	}
 
 	setChoice = (choice) => {
+
 		this.setState({
 			choice: choice
 		})
-	}
-
-	componentDidMount(){
-
+		console.log(choice);
 	}
 
 	render() {
 		const quesryString = window.location
-		console.log('test', this.props)
+
 		return(
 			<div className='page'>
+				<Link to='/polls'><button>back</button></Link>
 				<h2>Would You Rather...</h2>
 				{this.props.authedUser === null
  					? this.props.questionIds.length === 0
  						? <div>Loading...</div>
  						: <div>
-						    <button id='Opt1' onClick={e => this.setChoice(e.target.value)}>{this.props.questions[this.props.questionIds[this.props.num]].optionOne.text}?</button>
+						    <button id='Opt1' onClick={e => this.setChoice('optionOne')}>{this.props.questions[this.props.questionIds[this.props.num]].optionOne.text}?</button>
 						    <h3>--or--</h3>
-						    <button id='Opt2' onClick={e => this.setChoice(e.target.value)}>{this.props.questions[this.props.questionIds[this.props.num]].optionTwo.text}?</button>
+						    <button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[this.props.questionIds[this.props.num]].optionTwo.text}?</button>
 						    <Link to='/'>
 						    <button>Final Answer</button>
 						    </Link>
@@ -38,11 +37,14 @@ class Question extends Component {
 					: this.props.questions[`${quesryString.pathname.substr(11)}`] === undefined
 						? null
 						: <div>
-							<button id='Opt1' onClick={e => this.setChoice(e.target.value)}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionOne.text}</button>
+							<button id='Opt1' onClick={e => this.setChoice('optionOne')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionOne.text}</button>
 							<h3>--or--</h3>
-							<button id='Opt2' onClick={e => this.setChoice(e.target.value)}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
-						  	<Link to='/polls' onClick={e => this.props.dispatch(addUserAnswer(this.props.authedUser, `${quesryString.pathname.substr(11)}`, this.state.choice))}>
-						  	<button>Final Answer</button>
+							<button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
+						  	<Link to='/polls' >
+						  	{Object.keys(this.props.users[this.props.authedUser].answers).includes(`${quesryString.pathname.substr(11)}`)
+						  		? <span><button disabled >Final Answer</button> already answered!</span>
+						  		: <button onClick={e => this.props.dispatch(addUserAnswer(this.props.authedUser, `${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
+						  	}
 						  	</Link>
 						  </div>
 				}
@@ -51,11 +53,12 @@ class Question extends Component {
 	}
 }
 
-function mapStateToProps ({ questions, authedUser }) {
+function mapStateToProps ({ questions, authedUser, users }) {
 	return {
-		questions: questions,
+		users,
+		questions,
 		questionIds: Object.keys(questions),
-		authedUser: authedUser,
+		authedUser,
 	}
 }
 
