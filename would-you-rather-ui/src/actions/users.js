@@ -9,7 +9,7 @@ export function receiveUsers (users) {
 	}
 }
 
-export function addUserAnswer ({authedUser, qid, answer}) {
+export function addUserAnswer (authedUser, qid, answer) {
 	return {
 		type: ADD_USER_ANSWER,
 		authedUser,
@@ -18,14 +18,21 @@ export function addUserAnswer ({authedUser, qid, answer}) {
 	}
 }
 
-export function handleAnswer (info) {
-    return (dispatch) => {
-        return saveAnswer(info)
+export function handleAnswer (qid, answer) {
+    return (dispatch, getState) => {
+    	const { authedUser } = getState()
+
+
+        return saveAnswer({
+        	authedUser: authedUser,
+        	qid: qid,
+        	answer: answer
+        	})
         	.then(() => {
-                dispatch(addUserAnswer(info))
+                dispatch(addUserAnswer(authedUser, qid, answer))
             })
             .catch((e) => {
-                alert('Answer not saved, submit again.')
+                alert(`Answer not saved, submit again. ${e}`)
             })
     }
 }

@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Question from './Question'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
 import Nav from './Nav'
 import ListQuestions from './ListQuestions'
 import HowTo from './HowTo'
 import LeaderBoard from './LeaderBoard'
 import AddQuestion from './AddQuestion'
+import { setAuthedUser } from '../actions/authedUser'
 
 class Dashboard extends Component {
 	render() {
 	  return (
 	    <div className="Dashboard">
 	    <Nav />
+	    <Link to='/'>
+	    <button onClick={() => this.props.dispatch(setAuthedUser(null))}>Sign Out</button></Link>
 	    { this.props.user && (
 	    <h3>Welcome {this.props.user.name}! Your score: {Object.keys(this.props.user.answers).length + this.props.user.questions.length}</h3>
 	    )}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { handleAnswer, addUserAnswer } from '../actions/users'
+import { handleAnswer } from '../actions/users'
 
 class Question extends Component {
 	state = {
@@ -18,7 +18,6 @@ class Question extends Component {
 
 	render() {
 		const quesryString = window.location
-		const info = {authedUser: this.props.authedUser, qid: `${quesryString.pathname.substr(11)}`, answer: this.state.choice}
 
 		return(
 			<div className='page'>
@@ -44,7 +43,7 @@ class Question extends Component {
 						  	<Link to='/polls' >
 						  	{Object.keys(this.props.users[this.props.authedUser].answers).includes(`${quesryString.pathname.substr(11)}`)
 						  		? <span><button disabled >Final Answer</button> already answered!</span>
-						  		: <button onClick={e => this.props.dispatch(handleAnswer({authedUser: this.props.authedUser, qid: `${quesryString.pathname.substr(11)}`, answer: this.state.choice}))}>Final Answer</button>
+						  		: <button onClick={e => this.props.dispatch(handleAnswer(`${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
 						  	}
 						  	</Link>
 						  </div>

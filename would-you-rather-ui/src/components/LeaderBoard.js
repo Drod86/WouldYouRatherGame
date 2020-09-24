@@ -3,15 +3,24 @@ import { connect } from 'react-redux'
 import UserInfo from './UserInfo'
 
 class LeaderBoard extends Component {
+	leaders(users) {
+		return this.props.usersIds.reduce((acc, user) => {
+			const score = Object.keys(users[user].answers).length + Object.keys(users[user].questions).length;
+			return [...acc, {id: user, score: score}]
+		}, []).sort(function(a, b){return a.score - b.score }).reverse().reduce((acc, leader) => {
+			return [...acc, leader.id]
+		}, [])
+	}
 	render(){
 
 		return (
 			<div>
+			{Object.keys(this.props.users).length > 0 && console.log('leaders', this.leaders(this.props.users))}
 			<h3>LeaderBoard </h3>
             <ul>
-            {Object.keys(this.props.users).length > 0 && console.log(Object.keys(this.props.users['sarahedo'].answers).length + Object.keys(this.props.users['sarahedo'].questions).length)&& this.props.usersIds === undefined
+            {Object.keys(this.props.users).length > 0 && this.props.usersIds === undefined
                 ? <p>Loading...</p>
-                : this.props.usersIds.map(user => <UserInfo key={user} id={user}/>)
+                : this.leaders(this.props.users).map(user => <UserInfo key={user} id={user}/>)
             }
             </ul>
             </div>
