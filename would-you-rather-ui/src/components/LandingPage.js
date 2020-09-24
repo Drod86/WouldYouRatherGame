@@ -38,7 +38,7 @@ class LandingPage extends Component {
 				<ul className='userDropDown' style={{display: this.state.display}}>
 					{this.props.usersIds.map(user => <li key={user} onClick={e => this.authedUser(user)}>{this.props.users[user].name}</li>)}
 				</ul>
-				<h3>--or--</h3>
+				<h3 className="or">--or--</h3>
 				<Link
 					to='/question'
 					className='quick-play'

@@ -8,14 +8,14 @@ import HowTo from './HowTo'
 import LeaderBoard from './LeaderBoard'
 import AddQuestion from './AddQuestion'
 import { setAuthedUser } from '../actions/authedUser'
+import '../index.css';
 
 class Dashboard extends Component {
 	render() {
 	  return (
 	    <div className="Dashboard">
 	    <Nav />
-	    <Link to='/'>
-	    <button onClick={() => this.props.dispatch(setAuthedUser(null))}>Sign Out</button></Link>
+
 	    { this.props.user && (
 	    <h3>Welcome {this.props.user.name}! Your score: {Object.keys(this.props.user.answers).length + this.props.user.questions.length}</h3>
 	    )}
@@ -26,6 +26,8 @@ class Dashboard extends Component {
 		    <Route path='/question/:questionId' render={() => <Question />} />
 		    <Route path='/leaders' component={LeaderBoard} />
 	    </div>
+	    <Link to='/'>
+	    <button onClick={() => this.props.dispatch(setAuthedUser(null))} className='signOut'>Sign Out</button></Link>
 	    </div>
 	  )
 	}

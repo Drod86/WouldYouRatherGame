@@ -21,7 +21,7 @@ class Question extends Component {
 
 		return(
 			<div className='page'>
-				<Link to='/polls'><button>back</button></Link>
+
 				<h2>Would You Rather...</h2>
 				{this.props.authedUser === null
  					? this.props.questionIds.length === 0
@@ -38,7 +38,7 @@ class Question extends Component {
 						? null
 						: <div>
 							<button id='Opt1' onClick={e => this.setChoice('optionOne')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionOne.text}</button>
-							<h3>--or--</h3>
+							<h3 className='or'>--or--</h3>
 							<button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
 						  	<Link to='/polls' >
 						  	{Object.keys(this.props.users[this.props.authedUser].answers).includes(`${quesryString.pathname.substr(11)}`)
@@ -48,6 +48,7 @@ class Question extends Component {
 						  	</Link>
 						  </div>
 				}
+				<Link to='/polls'><button className='backBtn'>back</button></Link>
 			</div>
 		)
 	}
