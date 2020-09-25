@@ -12,8 +12,10 @@ class UserInfo extends Component {
                 : <span>
                     <img alt='avatar' src={url} />
                     <h4>{user.name}</h4>
+                    {this.props.score && (<span>
                     <h4>Answered: {Object.keys(user.answers).length}</h4>
                     <h4>Added: {Object.keys(user.questions).length}</h4>
+                    </span>)}
                   </span>
             }
             </div>

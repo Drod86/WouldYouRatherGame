@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { handleAnswer } from '../actions/users'
+import UserInfo from './UserInfo'
 
 class Question extends Component {
 	state = {
@@ -37,13 +38,16 @@ class Question extends Component {
 					: this.props.questions[`${quesryString.pathname.substr(11)}`] === undefined
 						? null
 						: <div>
+							Added by: <UserInfo id={this.props.questions[`${quesryString.pathname.substr(11)}`].author} />
 							<button id='Opt1' onClick={e => this.setChoice('optionOne')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionOne.text}</button>
 							<h3 className='or'>--or--</h3>
 							<button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
 						  	<Link to='/polls' >
 						  	{Object.keys(this.props.users[this.props.authedUser].answers).includes(`${quesryString.pathname.substr(11)}`)
 						  		? <span><button disabled >Final Answer</button> already answered!</span>
-						  		: <button onClick={e => this.props.dispatch(handleAnswer(`${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
+						  		: this.state.choice === ''
+						  			? <button disabled>Final Answer</button>
+						  			: <button onClick={e => this.props.dispatch(handleAnswer(`${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
 						  	}
 						  	</Link>
 						  </div>

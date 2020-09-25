@@ -20,7 +20,7 @@ class LeaderBoard extends Component {
             <ul>
             {Object.keys(this.props.users).length > 0 && this.props.usersIds === undefined
                 ? <p>Loading...</p>
-                : this.leaders(this.props.users).map(user => <UserInfo key={user} id={user}/>)
+                : this.leaders(this.props.users).map(user => <UserInfo key={user} id={user} score/>)
             }
             </ul>
             </div>
