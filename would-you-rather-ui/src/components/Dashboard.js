@@ -13,12 +13,16 @@ import '../index.css';
 class Dashboard extends Component {
 	render() {
 	  return (
-	    <div className="Dashboard page">
+	    <div className="Dashboard">
+	    <aside className='polls'><ListQuestions /></aside>
+	    <main>
 	    <Nav />
-
+	    <header>
 	    { this.props.user && (
 	    <h3>Welcome {this.props.user.name}! Your score: {Object.keys(this.props.user.answers).length + this.props.user.questions.length}</h3>
 	    )}
+	    </header>
+	    <section className='pages'>
 	    <div>
 	    	<Route exact path='/' component={HowTo} />
 	    	<Route path='/polls' component={ListQuestions} />
@@ -28,6 +32,9 @@ class Dashboard extends Component {
 	    </div>
 	    <Link to='/'>
 	    <button onClick={() => this.props.dispatch(setAuthedUser(null))} className='signOut'>Sign Out</button></Link>
+	    </section>
+	    </main>
+	    <aside className='leaders'><LeaderBoard /></aside>
 	    </div>
 	  )
 	}

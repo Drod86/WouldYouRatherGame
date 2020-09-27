@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddQuestion } from '../actions/questions'
 import { Link } from 'react-router-dom'
+import '../index.css';
 
 class AddQuestion extends Component {
 	state = {
@@ -23,7 +24,7 @@ class AddQuestion extends Component {
 
 	render() {
 		return(
-			<div className='page'>
+			<div className='pages'>
                 <h3>AddQuestion</h3>
                 <h4>Would you rather...?</h4>
                 <input placeholder='Option One' type='text' onChange={e => this.addOptionOne(e.target.value)} />

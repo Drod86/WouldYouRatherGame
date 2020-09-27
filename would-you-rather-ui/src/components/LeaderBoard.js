@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import UserInfo from './UserInfo'
+import '../index.css';
 
 class LeaderBoard extends Component {
 	leaders(users) {
@@ -14,7 +15,7 @@ class LeaderBoard extends Component {
 	render(){
 
 		return (
-			<div>
+			<div className='leader-board pages'>
 			{Object.keys(this.props.users).length > 0 && console.log('leaders', this.leaders(this.props.users))}
 			<h3>LeaderBoard </h3>
             <ul>
