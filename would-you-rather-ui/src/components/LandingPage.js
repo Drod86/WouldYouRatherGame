@@ -33,7 +33,7 @@ class LandingPage extends Component {
 	render() {
 		return(
 			<div className='page' >
-				<h2>Would You Rather...</h2>
+				<h1>Would You Rather...</h1>
 				<button onClick={() => this.display(this.state.display)}>Login?</button>
 				<ul className='userDropDown' style={{display: this.state.display}}>
 					{this.props.usersIds.map(user => <li key={user} onClick={e => this.authedUser(user)}>{this.props.users[user].name}</li>)}

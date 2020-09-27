@@ -13,7 +13,7 @@ import '../index.css';
 class Dashboard extends Component {
 	render() {
 	  return (
-	    <div className="Dashboard">
+	    <div className="Dashboard page">
 	    <Nav />
 
 	    { this.props.user && (

@@ -32,8 +32,10 @@ class Question extends Component {
 						    <h3>--or--</h3>
 						    <button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[this.props.questionIds[this.props.num]].optionTwo.text}?</button>
 						    <Link to='/'>
-						    <button>Final Answer</button>
+						    <button className='submit'>Final Answer</button>
 						    </Link>
+                    <Link to='/'><button className='backBtn'>back</button></Link>
+
 						  </div>
 					: this.props.questions[`${quesryString.pathname.substr(11)}`] === undefined
 						? null
@@ -44,15 +46,16 @@ class Question extends Component {
 							<button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
 						  	<Link to='/polls' >
 						  	{Object.keys(this.props.users[this.props.authedUser].answers).includes(`${quesryString.pathname.substr(11)}`)
-						  		? <span><button disabled >Final Answer</button> already answered!</span>
+						  		? <span><button className='submit' disabled >Final Answer</button> already answered!</span>
 						  		: this.state.choice === ''
-						  			? <button disabled>Final Answer</button>
-						  			: <button onClick={e => this.props.dispatch(handleAnswer(`${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
+						  			? <button className='submit' disabled>Final Answer</button>
+						  			: <button className='submit' onClick={e => this.props.dispatch(handleAnswer(`${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
 						  	}
 						  	</Link>
+                    <Link to='/polls'><button className='backBtn'>back</button></Link>
+
 						  </div>
 				}
-				<Link to='/polls'><button className='backBtn'>back</button></Link>
 			</div>
 		)
 	}

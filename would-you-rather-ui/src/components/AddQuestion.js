@@ -23,7 +23,7 @@ class AddQuestion extends Component {
 
 	render() {
 		return(
-			<div>
+			<div className='page'>
                 <h3>AddQuestion</h3>
                 <h4>Would you rather...?</h4>
                 <input placeholder='Option One' type='text' onChange={e => this.addOptionOne(e.target.value)} />
