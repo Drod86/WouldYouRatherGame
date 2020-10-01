@@ -7,7 +7,7 @@ class UserInfo extends Component {
         const user = this.props.users[this.props.id.id]
         const url = user.avatarURL
         return(
-            <div class='user-info'>
+            <div className='user-info'>
             {this.props.users === undefined
                 ? <p>Loading...</p>
                 : <span>

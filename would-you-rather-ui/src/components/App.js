@@ -4,36 +4,45 @@ import { handleInitialData } from '../actions/shared'
 import LandingPage from './LandingPage'
 import Dashboard from './Dashboard'
 import Question from './Question'
-import { Route } from 'react-router-dom'
+import PrivateRoute from './PrivateRoute'
+import {
+	BrowserRouter as Router,
+	Route,
+	Link,
+	Redirect
+} from 'react-router-dom'
 
 class App extends Component {
+
 	componentDidMount () {
 		this.props.dispatch(handleInitialData())
 	}
+
 	render() {
+		console.log('testing', this.props)
 		const ranNum = () => {
 			return Math.floor(Math.random() * this.props.questionIds.length)
 		}
-	  return (
-	    <div className="App">
-	    <Route path='/question' render={() => <Question num={ranNum()} />} />
-		<Route exact path='/' render={() => (
-		    	this.props.loading === true
-		    		? <LandingPage />
-		    		: <Dashboard user={this.props.authedUser} />
-		 )} />
-		<Route path='/polls' component={Dashboard} />
-		<Route path='/add' component={Dashboard} />
-		<Route path='/leaders' component={Dashboard} />
-	    </div>
-	  )
+
+	 	return (
+		    <Router>
+		    	{this.props.loading
+		    		? '...loading'
+		    		: <div>
+						<Route path='/login' component={LandingPage} />
+					 	<PrivateRoute path='/' render={() => <Dashboard user={this.props.authedUser} />} />
+					  </div>
+				}
+		    </Router>
+		)
 	}
 }
 
-function mapStateToProps ({ authedUser, questions }) {
+function mapStateToProps ({ authedUser, users, questions }) {
 	return {
-		loading: authedUser === null,
-		questionIds: Object.keys(questions)
+		loading: Object.keys(questions).length === 0 || Object.keys(questions).length === 0 || authedUser !== null,
+		authedUser,
+
 	}
 }
 

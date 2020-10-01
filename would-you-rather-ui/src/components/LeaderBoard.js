@@ -16,7 +16,6 @@ class LeaderBoard extends Component {
 
 		return (
 			<div className='leader-board pages'>
-			{Object.keys(this.props.users).length > 0 && console.log('leaders', this.leaders(this.props.users))}
 			<h3>LeaderBoard </h3>
             <ul>
             {Object.keys(this.props.users).length > 0 && this.props.usersIds === undefined
