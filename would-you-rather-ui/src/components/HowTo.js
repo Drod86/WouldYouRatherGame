@@ -1,8 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import Dashboard from './Dashboard'
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	useRouteMatch,
+	useParams,
+	Redirect
+} from 'react-router-dom'
 
-const HowTo = () => {
-	return (
+export default function HowTo() {
+	let match = useRouteMatch();
+	return(
 		<div>
 			<h3>How To Play</h3>
 			<p>Increase your score by choosing and answering poll questions from the polls list or by adding a new question of your own.</p>
@@ -12,4 +22,3 @@ const HowTo = () => {
 		</div>
 	)
 }
-export default HowTo;

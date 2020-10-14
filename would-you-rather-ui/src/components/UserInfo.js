@@ -11,10 +11,10 @@ class UserInfo extends Component {
             {this.props.users === undefined
                 ? <p>Loading...</p>
                 : <span>
-
-                    {this.props.score && (<span className='scores'>
-                        <img alt='avatar' src={url} />
+                    <img alt='avatar' src={url} />
                     <h4 className='name'>{user.name}</h4>
+                    {this.props.score && (<span className='scores'>
+
                     <h5 className='answered'>Answered: {Object.keys(user.answers).length}</h5>
                     <h5 className='added'>Added: {Object.keys(user.questions).length}</h5>
                     <h5 className='score'>Score: {Object.keys(user.questions).length + Object.keys(user.answers).length}</h5>

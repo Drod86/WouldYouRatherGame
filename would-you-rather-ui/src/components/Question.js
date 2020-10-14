@@ -10,50 +10,66 @@ class Question extends Component {
 	}
 
 	setChoice = (choice) => {
-
 		this.setState({
 			choice: choice
 		})
-		console.log(choice);
 	}
 
+	randomNum = () => Math.floor(Math.random() * this.props.questionIds.length)
+
+	questionId = () => window.location.pathname.substr(11)
+
+	question = (id = this.questionId()) => this.props.questions[id]
+
 	render() {
-		const quesryString = window.location
-
+		const { display, authedUser, questionIds, questions, users } = this.props
+		const num = this.randomNum()
+		const randomQuestion = this.question(questionIds[num])
+		const question = this.question()
+		const opt1 = 'optionOne'
+		const opt2 = 'optionTwo'
+		const optionText = (option) => {
+			return authedUser === undefined
+				? randomQuestion[option].text
+				: question[option].text
+		}
+		const isAnswered = () => Object.keys(authedUser.answers).includes(question.id)
+		const usersAnswer = () => authedUser.answers[question.id]
+		const votes = (option) => question[option].votes.length
+		const choiceAverage = (option) => (question[option].votes.length / Object.keys(users).length * 100).toFixed(2)
 		return(
-			<div className='page'>
-
+			<div className='page' style={{display: display ? 'none' : ''}}>
 				<h2>Would You Rather...</h2>
-				{this.props.authedUser === null
- 					? this.props.questionIds.length === 0
+				{authedUser === undefined
+ 					? questionIds.length === 0
  						? <div>Loading...</div>
- 						: <div>
-						    <button id='Opt1' onClick={e => this.setChoice('optionOne')}>{this.props.questions[this.props.questionIds[this.props.num]].optionOne.text}?</button>
+ 						: <div style={{display: display}}>
+						    <button id='opt1' >{optionText(opt1)}?</button>
 						    <h3>--or--</h3>
-						    <button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[this.props.questionIds[this.props.num]].optionTwo.text}?</button>
-						    <Link to='/'>
-						    <button className='submit'>Final Answer</button>
-						    </Link>
-                    <Link to='/'><button className='backBtn'>back</button></Link>
-
+						    <button id='opt2' >{optionText(opt2)}?</button>
 						  </div>
-					: this.props.questions[`${quesryString.pathname.substr(11)}`] === undefined
-						? null
-						: <div>
-							Added by: <UserInfo id={this.props.questions[`${quesryString.pathname.substr(11)}`].author} />
-							<button id='Opt1' onClick={e => this.setChoice('optionOne')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionOne.text}</button>
+					: question !== undefined
+						? <div>
+							<UserInfo id={question.author} />
+							<button id='opt1' onClick={e => this.setChoice(opt1)} style={{border: usersAnswer() === opt1 && '2px solid red'}}>{optionText(opt1)}?</button>
+							<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt1)}  / choice of {choiceAverage(opt1)}% of players</p>
 							<h3 className='or'>--or--</h3>
-							<button id='Opt2' onClick={e => this.setChoice('optionTwo')}>{this.props.questions[`${quesryString.pathname.substr(11)}`].optionTwo.text}</button>
-						  	<Link to='/polls' >
-						  	{Object.keys(this.props.users[this.props.authedUser].answers).includes(`${quesryString.pathname.substr(11)}`)
+							<button id='opt2' onClick={e => this.setChoice(opt2)} style={{border: usersAnswer() === opt2 && '2px solid red'}}>{optionText(opt2)}?</button>
+						  	<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt2)}  / choice of {choiceAverage(opt2)}% of players</p>
+							<Link to='/' >
+						  	{isAnswered()
 						  		? <span><button className='submit' disabled >Final Answer</button> already answered!</span>
 						  		: this.state.choice === ''
 						  			? <button className='submit' disabled>Final Answer</button>
-						  			: <button className='submit' onClick={e => this.props.dispatch(handleAnswer(`${quesryString.pathname.substr(11)}`, this.state.choice))}>Final Answer</button>
+						  			: <button className='submit' onClick={e => this.props.dispatch(handleAnswer(question.id, this.state.choice))}>Final Answer</button>
 						  	}
 						  	</Link>
-                    <Link to='/polls'><button className='backBtn'>back</button></Link>
+	                		<Link to='/polls'><button className='backBtn'>back</button></Link>
+						  </div>
 
+						: <div style={{display: display ? 'none' : ''}}>
+							<h1>404</h1>
+							<h4>This poll quesetion is not available</h4>
 						  </div>
 				}
 			</div>
@@ -61,12 +77,14 @@ class Question extends Component {
 	}
 }
 
-function mapStateToProps ({ questions, authedUser, users }) {
+function mapStateToProps ({ questions, authedUser, users }, { num, display }) {
 	return {
 		users,
+		authedUser: users[authedUser],
 		questions,
 		questionIds: Object.keys(questions),
-		authedUser,
+		num,
+		display
 	}
 }
 

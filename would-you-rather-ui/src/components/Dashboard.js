@@ -1,51 +1,53 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Question from './Question'
-import { Route, Link } from 'react-router-dom'
-import Nav from './Nav'
-import ListQuestions from './ListQuestions'
+import Polls from './Polls'
 import HowTo from './HowTo'
-import LeaderBoard from './LeaderBoard'
-import AddQuestion from './AddQuestion'
-import { setAuthedUser } from '../actions/authedUser'
-import '../index.css';
+import Add from './Add'
+import Leaders from './Leaders'
+import Question from './Question'
+import Welcome from './Welcome'
+import Nav from './Nav'
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link,
+	useRouteMatch,
+	useParams,
+	Redirect
+} from 'react-router-dom'
 
-class Dashboard extends Component {
-	render() {
-	  return (
-	    <div className="Dashboard">
-	    <aside className='polls'><ListQuestions /></aside>
-	    <main>
-	    <Nav />
-	    <header>
-	    { this.props.user && (
-	    <h3>Welcome {this.props.user.name}! Your score: {Object.keys(this.props.user.answers).length + this.props.user.questions.length}</h3>
-	    )}
-	    </header>
-	    <section className='pages'>
-	    <div>
-	    	<Route exact path='/' component={HowTo} />
-	    	<Route path='/polls' component={ListQuestions} />
-	    	<Route path='/add' component={AddQuestion} />
-		    <Route path='/question/:questionId' render={() => <Question />} />
-		    <Route path='/leaders' component={LeaderBoard} />
-	    </div>
-	    <Link to='/'>
-	    <button onClick={() => this.props.dispatch(setAuthedUser(null))} className='signOut'>Sign Out</button></Link>
-	    </section>
-	    </main>
-	    <aside className='leaders'><LeaderBoard /></aside>
-	    </div>
-	  )
-	}
+const Dashboard = () => {
+	let match = useRouteMatch();
+	return(
+		<Router>
+			<div>
+				<aside>
+					<Polls />
+				</aside>
+				<nav>
+					<Nav />
+				</nav>
+				<header>
+					<Welcome />
+				</header>
+				<section>
+				<h3>main</h3>
+					<Switch>
+						<Route exact path={match.path} component={HowTo} />
+						<Route path={`${match.path}polls`} component={Polls} />
+						<Route path={`${match.path}add`} component={Add} />
+						<Route path={`${match.path}leaderboard`} component={Leaders} />
+						<Route path={`${match.path}question`} component={Question} />
+					</Switch>
+				</section>
+				<aside>
+					<Leaders />
+				</aside>
+			</div>
+		</Router>
+	)
+
 }
 
-function mapStateToProps ({questions, users, authedUser}, user) {
-	return {
-		authedUser,
-		questionIds: Object.keys(questions),
-		user: users[authedUser]
-	}
-}
-
-export default connect(mapStateToProps)(Dashboard)
+export default Dashboard

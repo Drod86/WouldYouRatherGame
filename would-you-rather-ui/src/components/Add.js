@@ -30,7 +30,7 @@ class AddQuestion extends Component {
                 <input placeholder='Option One' type='text' onChange={e => this.addOptionOne(e.target.value)} />
                 <p>--or--</p>
                 <input placeholder='Option Two' type='text' onChange={e => this.addOptionTwo(e.target.value)} />
-                <Link to='/polls'>
+                <Link to='/'>
                 <button onClick={() => this.props.dispatch(handleAddQuestion(this.state.optionOne, this.state.optionTwo))}>Add</button></Link>
             </div>
 		)

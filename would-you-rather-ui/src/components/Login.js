@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link, Redirect} from 'react-router-dom'
 import { setAuthedUser } from '../actions/authedUser'
-import { Link } from 'react-router-dom'
 
-class LandingPage extends Component {
+class Login extends Component {
 	state = {
 		display: 'none',
-		authedUser: ''
+		authedUser: '',
+		redirectToReferrer: false
 	}
 
 	display = (display) => {
@@ -28,23 +29,22 @@ class LandingPage extends Component {
 		})
 		this.display(this.state.display)
 		this.props.dispatch(setAuthedUser(user))
+		this.setState(() => ({
+			redirectToReferrer: true
+		}))
 	}
 
-	render() {
+	render(){
+		const { from } = this.props.to.state || { from : { pathname: '/' } }
+
 		return(
 			<div className='page' >
 				<h1>Would You Rather...</h1>
 				<button onClick={() => this.display(this.state.display)}>Login?</button>
 				<ul className='userDropDown' style={{display: this.state.display}}>
-					{this.props.usersIds.map(user => <li key={user} onClick={e => this.authedUser(user)}>{this.props.users[user].name}</li>)}
+					{this.props.usersIds.map(user => <li key={user} onClick={e => this.authedUser(user)}><Link to={from}>{this.props.users[user].name}</Link></li>)}
 				</ul>
 				<h3 className="or">--or--</h3>
-				<Link
-					to='/question'
-					className='quick-play'
-				>
-				<button>Quick Play?</button>
-				</Link>
 			</div>
 		)
 	}
@@ -57,4 +57,4 @@ function mapStateToProps({ users }){
 	}
 }
 
-export default connect(mapStateToProps)(LandingPage)
+export default connect(mapStateToProps)(Login)

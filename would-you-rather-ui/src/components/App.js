@@ -1,48 +1,61 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
-import LandingPage from './LandingPage'
+import { setAuthedUser } from '../actions/authedUser'
+import Login from './Login'
 import Dashboard from './Dashboard'
 import Question from './Question'
 import PrivateRoute from './PrivateRoute'
 import {
 	BrowserRouter as Router,
+	Switch,
 	Route,
 	Link,
+	useRouteMatch,
+	useParams,
 	Redirect
 } from 'react-router-dom'
 
 class App extends Component {
+	state = {
+		display: ''
+	}
 
 	componentDidMount () {
 		this.props.dispatch(handleInitialData())
 	}
 
-	render() {
-		console.log('testing', this.props)
-		const ranNum = () => {
-			return Math.floor(Math.random() * this.props.questionIds.length)
-		}
+	changeDisplay (arg) {
+		return arg === 'none'
+		? this.setState({display: ''})
+		: this.setState({display: 'none'})
+	}
 
-	 	return (
-		    <Router>
-		    	{this.props.loading
-		    		? '...loading'
-		    		: <div>
-						<Route path='/login' component={LandingPage} />
-					 	<PrivateRoute path='/' render={() => <Dashboard user={this.props.authedUser} />} />
-					  </div>
-				}
-		    </Router>
+	render(){
+		return(
+			<Router>
+				<div style={{display: this.state.display}}>
+					<Switch>
+						<PrivateRoute path='/' component={Dashboard} isAuthenticated={this.props.authedUser} />
+						<Route exact path='/question'>
+							<Question />
+						</Route>
+					</Switch>
+					<Link to='/'><button onClick={() => this.props.dispatch(setAuthedUser(null))} style={{display: this.props.authedUser === null && 'none'}}>Sign Out</button></Link>
+
+				</div>
+				<Question display={!this.state.display} changeDisplay={this.changeDisplay} />
+				<button onClick={() => this.changeDisplay(this.state.display)} style={{display: this.props.authedUser === null ? this.state.display : 'none'}}>Quick Play?</button>
+				<button onClick={() => this.changeDisplay(this.state.display)} style={{display: this.state.display === 'none' ? '' : 'none'}}>Final Answer</button>
+			</Router>
 		)
 	}
 }
 
 function mapStateToProps ({ authedUser, users, questions }) {
 	return {
-		loading: Object.keys(questions).length === 0 || Object.keys(questions).length === 0 || authedUser !== null,
+		loading: Object.keys(questions).length === 0 || Object.keys(questions).length === 0,
 		authedUser,
-
 	}
 }
 
