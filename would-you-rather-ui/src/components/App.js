@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
-import { setAuthedUser } from '../actions/authedUser'
+import { handleAuthedUser, setAuthedUser } from '../actions/authedUser'
 import Login from './Login'
 import Dashboard from './Dashboard'
 import Question from './Question'
@@ -39,6 +39,7 @@ class App extends Component {
 					</Switch>
 					<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
 				</div>
+				<h3 style={{display: display}}>--or--</h3>
 				<Question display={!display} />
 				<button onClick={() => this.changeDisplay(display)} style={{display: display}}>Quick Play?</button>
 				<button onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>

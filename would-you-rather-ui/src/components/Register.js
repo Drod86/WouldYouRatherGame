@@ -51,7 +51,7 @@ class Register extends Component {
                 <input placeholder='optional' type='text' onChange={e => this.addAvatarUrl(e.target.value)} />
                 <h4>Password</h4>
                 <input placeholder='Last Name' type='text' onChange={e => this.addPassword(e.target.value)} />
-                <Link to='/'>
+                <Link to='/howto'>
                 <button onClick={() => dispatch(handleNewUser(newUser))}>Register</button></Link>
             </div>
 		)

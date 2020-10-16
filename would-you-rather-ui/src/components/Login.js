@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
-import { setAuthedUser } from '../actions/authedUser'
+import { setAuthedUser, handleAuthedUser } from '../actions/authedUser'
 import { handleNewUser } from '../actions/users'
 
 class Login extends Component {
 	state = {
 		display: 'none',
-		authedUser: '',
+		displayRegister: 'none',
 		newUser: {
 			firstName: '',
 			lastName: '',
@@ -16,25 +16,41 @@ class Login extends Component {
 		}
 	}
 
-	display = (display) => {
-		switch(display) {
-			case '' :
-				return this.setState(prevState => ({
-				display: 'none'
-				}))
+	changeDisplay = (field, display) => {
+		switch(field) {
+			case 'display':
+				return display === ''
+				? this.setState(prevState => ({
+					display: 'none',
+					displayRegister: ''
+					}))
+				: this.setState(prevState => ({
+					display: '',
+					displayRegister: 'none'
+					}))
+			case 'displayRegister':
+				return display === ''
+				? this.setState(prevState => ({
+					display: '',
+					displayRegister: 'none'
+					}))
+				: this.setState(prevState => ({
+					display: 'none',
+					displayRegister: ''
+					}))
 			default :
 				return this.setState(prevState => ({
-					display: ''
+					display: '',
+					displayRegister: 'none'
 				}))
 		}
 	}
 
-	authedUser = (user) => {
-		this.setState({
-			authedUser: user
-		})
-		this.display(this.state.display)
-		this.props.dispatch(setAuthedUser(user))
+	authedUser = (authedUser) => {
+		let username = authedUser.firstName.concat(authedUser.lastName)
+		let user = { username: username, password: authedUser.password}
+
+		this.props.dispatch(handleAuthedUser(user))
 	}
 
 	collectInput = (field, text) => {
@@ -75,37 +91,43 @@ class Login extends Component {
 	}
 
 	render(){
-		const { display, newUser } = this.state
+		const { display, displayRegister, newUser } = this.state
 		const { to, users, userIds, dispatch } = this.props
 		const paths = ['/', '/polls', '/add', '/leaderboard', '/question', '/register']
 		const { from } = to.state || { from : { pathname: '/' } }
+		const authedUser = {firstName: newUser.firstName, lastName: newUser.lastName, password: newUser.password}
+		console.log(display)
 		return(
 			<div className='page' >
 				<h1>Would You Rather...</h1>
 				<div>
-				<button onClick={() => this.display(display)}>Login?</button>
-				<ul className='userDropDown' style={{display: display}}>
-					{userIds.map(user => (
-						paths.includes(from.pathname)
-						? <li key={user} onClick={e => this.authedUser(user)}><Link to={from}>{users[user].name}</Link></li>
-						: <li key={user} onClick={e => this.authedUser(user)}><Redirect to='/'>{users[user].name}</Redirect></li>
-						)
-					)}
-				</ul>
+				<div className='Login' style={{display: display}}>
+				<h4>First Name</h4>
+	                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
+	                <h4>Last Name</h4>
+	                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
+	                <h4>Password</h4>
+	                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
+				{paths.includes(from.pathname)
+					? <button onClick={e => this.authedUser(authedUser)}><Link to={from}>Login</Link></button>
+					: <button onClick={e => this.authedUser(authedUser)}><Redirect to='/'>Login</Redirect></button>
+				}
 				</div>
-					<div className='pages' style={{display: display}}>
+				</div>
+				<div className='Register' style={{display: displayRegister}}>
 	                <h3>Register</h3>
 	                <h4>First Name</h4>
-	                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName'/>
+	                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
 	                <h4>Last Name</h4>
-	                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName'/>
+	                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
 	                <h4>Avatar URL</h4>
-	                <input placeholder='optional' type='text' onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl'/>
+	                <input placeholder='Optional' type='text' onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl'/>
 	                <h4>Password</h4>
-	                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password'/>
+	                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
 	                <Link to='/howto'>
 	                <button onClick={() => dispatch(handleNewUser(newUser))}>Register</button></Link>
             	</div>
+            	<button onClick={() => this.changeDisplay('display', display)}>{displayRegister === '' ? 'Login' : display === 'none' ? 'Login?' : 'Register'}</button>
 			</div>
 		)
 	}
