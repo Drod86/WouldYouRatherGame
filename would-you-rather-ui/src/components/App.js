@@ -10,10 +10,7 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link,
-	useRouteMatch,
-	useParams,
-	Redirect
+	Link
 } from 'react-router-dom'
 
 class App extends Component {
@@ -32,29 +29,26 @@ class App extends Component {
 	}
 
 	render(){
+		const { display } = this.state
+		const { authedUser, dispatch } = this.props
 		return(
 			<Router>
-				<div style={{display: this.state.display}}>
+				<div style={{display: display}}>
 					<Switch>
-						<PrivateRoute path='/' component={Dashboard} isAuthenticated={this.props.authedUser} />
-						<Route exact path='/question'>
-							<Question />
-						</Route>
+						<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
 					</Switch>
-					<Link to='/'><button onClick={() => this.props.dispatch(setAuthedUser(null))} style={{display: this.props.authedUser === null && 'none'}}>Sign Out</button></Link>
-
+					<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
 				</div>
-				<Question display={!this.state.display} changeDisplay={this.changeDisplay} />
-				<button onClick={() => this.changeDisplay(this.state.display)} style={{display: this.props.authedUser === null ? this.state.display : 'none'}}>Quick Play?</button>
-				<button onClick={() => this.changeDisplay(this.state.display)} style={{display: this.state.display === 'none' ? '' : 'none'}}>Final Answer</button>
+				<Question display={!display} />
+				<button onClick={() => this.changeDisplay(display)} style={{display: display}}>Quick Play?</button>
+				<button onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>
 			</Router>
 		)
 	}
 }
 
-function mapStateToProps ({ authedUser, users, questions }) {
+function mapStateToProps ({ authedUser }) {
 	return {
-		loading: Object.keys(questions).length === 0 || Object.keys(questions).length === 0,
 		authedUser,
 	}
 }

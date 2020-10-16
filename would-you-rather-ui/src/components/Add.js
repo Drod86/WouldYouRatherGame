@@ -23,6 +23,8 @@ class AddQuestion extends Component {
 	}
 
 	render() {
+		const { optionOne, optionTwo } = this.state
+		const { dispatch } = this.props
 		return(
 			<div className='pages'>
                 <h3>AddQuestion</h3>
@@ -31,7 +33,7 @@ class AddQuestion extends Component {
                 <p>--or--</p>
                 <input placeholder='Option Two' type='text' onChange={e => this.addOptionTwo(e.target.value)} />
                 <Link to='/'>
-                <button onClick={() => this.props.dispatch(handleAddQuestion(this.state.optionOne, this.state.optionTwo))}>Add</button></Link>
+                <button onClick={() => dispatch(handleAddQuestion(optionOne, optionTwo))}>Add</button></Link>
             </div>
 		)
 	}

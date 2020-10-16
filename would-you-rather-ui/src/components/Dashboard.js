@@ -12,9 +12,7 @@ import {
 	Switch,
 	Route,
 	Link,
-	useRouteMatch,
-	useParams,
-	Redirect
+	useRouteMatch
 } from 'react-router-dom'
 
 const Dashboard = () => {
@@ -32,7 +30,6 @@ const Dashboard = () => {
 					<Welcome />
 				</header>
 				<section>
-				<h3>main</h3>
 					<Switch>
 						<Route exact path={match.path} component={HowTo} />
 						<Route path={`${match.path}polls`} component={Polls} />

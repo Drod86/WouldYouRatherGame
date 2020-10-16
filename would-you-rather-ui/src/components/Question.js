@@ -22,7 +22,8 @@ class Question extends Component {
 	question = (id = this.questionId()) => this.props.questions[id]
 
 	render() {
-		const { display, authedUser, questionIds, questions, users } = this.props
+		const { display, authedUser, questionIds, questions, users, dispatch } = this.props
+		const { choice } = this.state
 		const num = this.randomNum()
 		const randomQuestion = this.question(questionIds[num])
 		const question = this.question()
@@ -37,6 +38,7 @@ class Question extends Component {
 		const usersAnswer = () => authedUser.answers[question.id]
 		const votes = (option) => question[option].votes.length
 		const choiceAverage = (option) => (question[option].votes.length / Object.keys(users).length * 100).toFixed(2)
+		const border = '2px solid red'
 		return(
 			<div className='page' style={{display: display ? 'none' : ''}}>
 				<h2>Would You Rather...</h2>
@@ -51,22 +53,21 @@ class Question extends Component {
 					: question !== undefined
 						? <div>
 							<UserInfo id={question.author} />
-							<button id='opt1' onClick={e => this.setChoice(opt1)} style={{border: usersAnswer() === opt1 && '2px solid red'}}>{optionText(opt1)}?</button>
+							<button id='opt1' onClick={e => this.setChoice(opt1)} style={{border: usersAnswer() === opt1 && border}}>{optionText(opt1)}?</button>
 							<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt1)}  / choice of {choiceAverage(opt1)}% of players</p>
 							<h3 className='or'>--or--</h3>
-							<button id='opt2' onClick={e => this.setChoice(opt2)} style={{border: usersAnswer() === opt2 && '2px solid red'}}>{optionText(opt2)}?</button>
+							<button id='opt2' onClick={e => this.setChoice(opt2)} style={{border: usersAnswer() === opt2 && border}}>{optionText(opt2)}?</button>
 						  	<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt2)}  / choice of {choiceAverage(opt2)}% of players</p>
 							<Link to='/' >
 						  	{isAnswered()
 						  		? <span><button className='submit' disabled >Final Answer</button> already answered!</span>
-						  		: this.state.choice === ''
+						  		: choice === ''
 						  			? <button className='submit' disabled>Final Answer</button>
-						  			: <button className='submit' onClick={e => this.props.dispatch(handleAnswer(question.id, this.state.choice))}>Final Answer</button>
+						  			: <button className='submit' onClick={e => dispatch(handleAnswer(question.id, choice))}>Final Answer</button>
 						  	}
 						  	</Link>
 	                		<Link to='/polls'><button className='backBtn'>back</button></Link>
 						  </div>
-
 						: <div style={{display: display ? 'none' : ''}}>
 							<h1>404</h1>
 							<h4>This poll quesetion is not available</h4>

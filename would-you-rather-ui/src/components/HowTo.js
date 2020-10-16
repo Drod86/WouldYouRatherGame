@@ -1,17 +1,7 @@
 import React from 'react'
-import Dashboard from './Dashboard'
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Link,
-	useRouteMatch,
-	useParams,
-	Redirect
-} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function HowTo() {
-	let match = useRouteMatch();
 	return(
 		<div>
 			<h3>How To Play</h3>

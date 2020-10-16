@@ -2,15 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-class ListQuestions extends Component {
-	state={display: ''}
-	changeDisplay() {
-		return this.state.display === ''
-		? this.setState({ display: 'none'})
-		: this.setState({ display: ''})
+class Polls extends Component {
+
+	state={
+		unAnswered: '',
+		answered: 'none'
 	}
+
+	showUnanswered() {
+		return this.setState({unAnswered: '', answered: 'none'})
+	}
+
+	showAnswered() {
+		return this.setState({unAnswered: 'none', answered: ''})
+	}
+
 	answeredIds() {
-		return Object.keys(this.props.users[this.props.authedUser].answers)
+		return Object.keys(this.props.answers)
 	}
 
 	timestamps() {
@@ -31,40 +39,47 @@ class ListQuestions extends Component {
 		return this.timeSortedQestions().filter(question => this.answeredIds().includes(question.id))
 	}
 
-	opt(question){
-		return this.props.users[this.props.authedUser].answers[question.id]
-		? this.props.users[this.props.authedUser].answers[question.id]
+	displayOption(question){
+		return this.props.answers[question.id]
+		? this.props.answers[question.id]
 		: 'optionOne'
 
 	}
 
 	display(polls){
 		return polls.map((question) =>
-					<Link to={`/question/:${question.id}`} key={question.id} ><button className='questionBtn'>{question[this.opt(question)].text}</button></Link>
-					)
+					<Link to={`/question/:${question.id}`} key={question.id} ><button className='questionBtn'>{question[this.displayOption(question)].text}</button></Link>
+				)
 	}
-	render() {
 
+	render() {
+		const { loading } = this.props
+		const { unAnswered, answered } =  this.state
 		return (
 			<div>
 			<nav>
 				<ul>
-					<li onClick={() => this.changeDisplay()}>Unanswered</li>
-					<li onClick={() => this.changeDisplay()}>Answered</li>
+					<li onClick={() => this.showUnanswered()}>Unanswered</li>
+					<li onClick={() => this.showAnswered()}>Answered</li>
 				</ul>
 			</nav>
-			<section style={{display: this.state.display}}>
-			<h4>Pick a poll to play</h4>
-			<ul className='pollList'>
-				{this.props.authedUser != null && this.display(this.unAnswered())}
-			</ul>
-			</section>
-			<section style={{display: this.state.display === '' ? 'none' : ''}}>
-			<h4>Completed polls</h4>
-			<ul className='pollList'>
-				{this.props.authedUser != null && this.display(this.answered())}
-			</ul>
-			</section>
+			{loading
+				? <h3>loading...</h3>
+				: <div>
+					<section style={{display: unAnswered}}>
+						<h4>Pick a poll to play</h4>
+						<ul className='pollList'>
+							{this.display(this.unAnswered())}
+						</ul>
+					</section>
+					<section style={{display: answered}}>
+						<h4>Completed polls</h4>
+						<ul className='pollList'>
+							{this.display(this.answered())}
+						</ul>
+				  	</section>
+				  </div>
+			}
 			</div>
 		)
 	}
@@ -74,8 +89,7 @@ function mapStateToProps({questions, authedUser, users}) {
 	return {
 		loading: authedUser === undefined,
 		questions: Object.values(questions),
-		authedUser,
-		users,
+		answers: users[authedUser].answers
 	}
 }
-export default connect(mapStateToProps)(ListQuestions)
+export default connect(mapStateToProps)(Polls)

@@ -2,6 +2,7 @@ let users = {
   sarahedo: {
     id: 'sarahedo',
     name: 'Sarah Edo',
+    password: 'sarahedo',
     avatarURL: 'https://gravatar.com/avatar/8335fd145d8f3c9f99963eae788416fd?s=400&d=robohash&r=x',
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
@@ -14,6 +15,7 @@ let users = {
   tylermcginnis: {
     id: 'tylermcginnis',
     name: 'Tyler McGinnis',
+    password: 'tylermcginnis',
     avatarURL: 'https://gravatar.com/avatar/6f27586a4b3969291df0a07a5de0b8c1?s=400&d=robohash&r=pg',
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
@@ -24,6 +26,7 @@ let users = {
   johndoe: {
     id: 'johndoe',
     name: 'John Doe',
+    password: 'johndoe',
     avatarURL: 'https://gravatar.com/avatar/362d66f8f86e7088b9d4a22f5aa2c938?s=400&d=robohash&r=pg',
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
@@ -115,6 +118,14 @@ let questions = {
   },
 }
 
+function generateUsername (firstName, lastName) {
+  return firstName
+}
+
+function generatePassword (password) {
+  return password
+}
+
 function generateUID () {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
@@ -122,6 +133,30 @@ function generateUID () {
 export function _getUsers () {
   return new Promise((res, rej) => {
     setTimeout(() => res({...users}), 1000)
+  })
+}
+
+export function formatUser ({ firstName, lastName, password, avatarUrl }) {
+  return {
+    id: `${firstName}${lastName}`,
+    name: `${firstName} ${lastName}`,
+    password: password,
+    avatarURL: avatarUrl,
+    answers: {},
+    questions: []
+  }
+}
+
+export function _saveUser (user) {
+  return new Promise((res, rej) => {
+    const formattedUser = formatUser(user);
+    setTimeout(() => {
+      users = {
+        ...users,
+        [formattedUser.id]: formattedUser
+      }
+      res(formattedUser)
+    }, 1000)
   })
 }
 
@@ -158,6 +193,7 @@ export function _saveQuestion (question) {
         [formattedQuestion.id]: formattedQuestion
       }
 
+      console.log('DATA', users)
       users = {
         ...users,
         [authedUser]: {
