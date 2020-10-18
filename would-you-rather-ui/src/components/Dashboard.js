@@ -18,9 +18,9 @@ import {
 const Dashboard = () => {
 	let match = useRouteMatch();
 	return(
-		<Router>
+		<Router className='Dashboard'>
 			<div>
-				<aside>
+				<aside className='nonMobile'>
 					<Polls />
 				</aside>
 				<nav>
@@ -38,7 +38,7 @@ const Dashboard = () => {
 						<Route path={`${match.path}question`} component={Question} />
 					</Switch>
 				</section>
-				<aside>
+				<aside className='nonMobile'>
 					<Leaders />
 				</aside>
 			</div>

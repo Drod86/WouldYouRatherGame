@@ -13,7 +13,7 @@ class LeaderBoard extends Component {
 	render(){
 		const { users } = this.props
 		return (
-			<div className='leader-board pages'>
+			<div className='Leaderboard'>
 			<h3>LeaderBoard</h3>
             <ul>
             {this.leaders(users).map(user => <UserInfo key={user.id} id={user.id} score/>)}

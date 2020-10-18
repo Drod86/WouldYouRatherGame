@@ -46,11 +46,15 @@ class Login extends Component {
 		}
 	}
 
-	authedUser = (authedUser) => {
+	authedUser = (authedUser, form) => {
 		let username = authedUser.firstName.concat(authedUser.lastName)
 		let user = { username: username, password: authedUser.password}
-
-		this.props.dispatch(handleAuthedUser(user))
+		const { firstName, lastName, password } = this.state.newUser
+		firstName !== '' || lastName !== '' || password !== ''
+			? form === 'login'
+				? this.props.dispatch(handleAuthedUser(user))
+				: this.props.dispatch(handleNewUser(authedUser))
+			: alert('Please complete required fields.')
 	}
 
 	collectInput = (field, text) => {
@@ -96,9 +100,8 @@ class Login extends Component {
 		const paths = ['/', '/polls', '/add', '/leaderboard', '/question', '/register']
 		const { from } = to.state || { from : { pathname: '/' } }
 		const authedUser = {firstName: newUser.firstName, lastName: newUser.lastName, password: newUser.password}
-		console.log(display)
 		return(
-			<div className='page' >
+			<div className='Login_Register_form'>
 				<h1>Would You Rather...</h1>
 				<div>
 				<div className='Login' style={{display: display}}>
@@ -109,8 +112,8 @@ class Login extends Component {
 	                <h4>Password</h4>
 	                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
 				{paths.includes(from.pathname)
-					? <button onClick={e => this.authedUser(authedUser)}><Link to={from}>Login</Link></button>
-					: <button onClick={e => this.authedUser(authedUser)}><Redirect to='/'>Login</Redirect></button>
+					? <button onClick={e => this.authedUser(authedUser, 'login')}><Link to={from}>Login</Link></button>
+					: <button onClick={e => this.authedUser(authedUser, 'login')}><Redirect to='/'>Login</Redirect></button>
 				}
 				</div>
 				</div>
@@ -125,7 +128,7 @@ class Login extends Component {
 	                <h4>Password</h4>
 	                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
 	                <Link to='/howto'>
-	                <button onClick={() => dispatch(handleNewUser(newUser))}>Register</button></Link>
+	                <button onClick={() => this.authedUser(newUser, 'register')}>Register</button></Link>
             	</div>
             	<button onClick={() => this.changeDisplay('display', display)}>{displayRegister === '' ? 'Login' : display === 'none' ? 'Login?' : 'Register'}</button>
 			</div>

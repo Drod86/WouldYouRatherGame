@@ -56,7 +56,7 @@ class Polls extends Component {
 		const { loading } = this.props
 		const { unAnswered, answered } =  this.state
 		return (
-			<div>
+			<div className='Polls'>
 			<nav>
 				<ul>
 					<li onClick={() => this.showUnanswered()}>Unanswered</li>

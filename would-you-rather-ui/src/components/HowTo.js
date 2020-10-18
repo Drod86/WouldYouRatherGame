@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function HowTo() {
 	return(
-		<div>
+		<div className='HowTo'>
 			<h3>How To Play</h3>
 			<p>Increase your score by choosing and answering poll questions from the polls list or by adding a new question of your own.</p>
 			<Link to='/polls' className='navBtn'><button>Polls List</button></Link>

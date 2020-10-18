@@ -9,7 +9,6 @@ export default function users (state = {}, action) {
 			}
 		case ADD_NEW_USER :
 			const { user } = action
-			console.log(action)
 			return {
 				...state,
 				[user.id]: user

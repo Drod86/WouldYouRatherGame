@@ -32,16 +32,16 @@ class App extends Component {
 		const { display } = this.state
 		const { authedUser, dispatch } = this.props
 		return(
-			<Router>
+			<Router className='App'>
 				<div style={{display: display}}>
 					<Switch>
 						<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
 					</Switch>
 					<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
 				</div>
-				<h3 style={{display: display}}>--or--</h3>
+				<h3 style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
 				<Question display={!display} />
-				<button onClick={() => this.changeDisplay(display)} style={{display: display}}>Quick Play?</button>
+				<button onClick={() => this.changeDisplay(display)} style={{display: authedUser === null ? display : 'none'}}>Quick Play?</button>
 				<button onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>
 			</Router>
 		)

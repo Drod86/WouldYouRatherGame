@@ -4,7 +4,7 @@ import '../index.css';
 
 const Nav = () => {
 	return (
-		<ul className='nav'>
+		<ul className='Nav'>
 			<li><Link to='/' className='navBtn'>How To</Link></li>
 			<li><Link to='/polls' className='navBtn'>Polls</Link></li>
 			<li><Link to='/add' className='navBtn'>Add</Link></li>

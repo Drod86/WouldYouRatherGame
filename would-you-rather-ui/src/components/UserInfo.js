@@ -9,7 +9,7 @@ class UserInfo extends Component {
         const added = Object.keys(questions).length
         const score = answered + added
         return(
-            <div className='user-info'>
+            <div className='User_Info'>
                 <span>
                     <img alt='avatar' src={avatarURL} />
                     <h4 className='name'>{name}</h4>

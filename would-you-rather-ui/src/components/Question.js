@@ -40,7 +40,7 @@ class Question extends Component {
 		const choiceAverage = (option) => (question[option].votes.length / Object.keys(users).length * 100).toFixed(2)
 		const border = '2px solid red'
 		return(
-			<div className='page' style={{display: display ? 'none' : ''}}>
+			<div className='Question' style={{display: display ? 'none' : ''}}>
 				<h2>Would You Rather...</h2>
 				{authedUser === undefined
  					? questionIds.length === 0
