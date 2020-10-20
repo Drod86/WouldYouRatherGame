@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import Polls from './Polls'
 import HowTo from './HowTo'
 import Add from './Add'
@@ -7,11 +6,11 @@ import Leaders from './Leaders'
 import Question from './Question'
 import Welcome from './Welcome'
 import Nav from './Nav'
+import '../index.css';
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link,
 	useRouteMatch
 } from 'react-router-dom'
 

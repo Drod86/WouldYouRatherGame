@@ -25,8 +25,10 @@ export function handleNewUser ({firstName, lastName, password, avatarUrl}) {
         return saveUser(info)
             .then((user) => {
                 Object.keys(users).includes(user.id)
-                    ? alert('User already exists. Try loggin in.')
-                    : dispatch(addNewUser(user)) && dispatch(setAuthedUser(user.id))
+                    ? alert('A User by this name already exists. Please try logging in or add a number to your last name to register a new user.')
+                    : password.length >= 8
+                        ? dispatch(addNewUser(user)) && dispatch(setAuthedUser(user.id))
+                        : alert('password must be 8 characters long. Please try again.')
             })
             .catch((e) => {
                 alert(`User not saved, please submit again. ${e}`)

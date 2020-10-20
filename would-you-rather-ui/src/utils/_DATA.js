@@ -118,12 +118,8 @@ let questions = {
   },
 }
 
-function generateUsername (firstName, lastName) {
-  return firstName
-}
-
-function generatePassword (password) {
-  return password
+export function generatePassword (password) {
+  return password.split('').reverse().map((c) => c.concat(String.fromCharCode((c.charCodeAt(c) + 9)))).toString().replace(/,/g, '').substr(1, password.length)
 }
 
 function generateUID () {
@@ -138,9 +134,9 @@ export function _getUsers () {
 
 export function formatUser ({ firstName, lastName, password, avatarUrl }) {
   return {
-    id: `${firstName}${lastName}`,
+    id: `${firstName.toLowerCase()}${lastName.toLowerCase()}`,
     name: `${firstName} ${lastName}`,
-    password: password,
+    password: generatePassword(password),
     avatarURL: avatarUrl,
     answers: {},
     questions: []
@@ -193,7 +189,6 @@ export function _saveQuestion (question) {
         [formattedQuestion.id]: formattedQuestion
       }
 
-      console.log('DATA', users)
       users = {
         ...users,
         [authedUser]: {

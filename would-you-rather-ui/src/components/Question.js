@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { handleAnswer } from '../actions/users'
 import UserInfo from './UserInfo'
+import '../index.css';
 
 class Question extends Component {
 	state = {
@@ -22,7 +23,7 @@ class Question extends Component {
 	question = (id = this.questionId()) => this.props.questions[id]
 
 	render() {
-		const { display, authedUser, questionIds, questions, users, dispatch } = this.props
+		const { display, authedUser, questionIds, users, dispatch } = this.props
 		const { choice } = this.state
 		const num = this.randomNum()
 		const randomQuestion = this.question(questionIds[num])

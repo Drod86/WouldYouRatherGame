@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
-import { setAuthedUser, handleAuthedUser } from '../actions/authedUser'
+import { generatePassword } from '../utils/_DATA'
+import { handleAuthedUser } from '../actions/authedUser'
 import { handleNewUser } from '../actions/users'
+import '../index.css';
 
 class Login extends Component {
 	state = {
@@ -47,8 +49,8 @@ class Login extends Component {
 	}
 
 	authedUser = (authedUser, form) => {
-		let username = authedUser.firstName.concat(authedUser.lastName)
-		let user = { username: username, password: authedUser.password}
+		let username = authedUser.firstName.toLowerCase().concat(authedUser.lastName.toLowerCase())
+		let user = { username: username, password: generatePassword(authedUser.password)}
 		const { firstName, lastName, password } = this.state.newUser
 		firstName !== '' || lastName !== '' || password !== ''
 			? form === 'login'
@@ -96,7 +98,7 @@ class Login extends Component {
 
 	render(){
 		const { display, displayRegister, newUser } = this.state
-		const { to, users, userIds, dispatch } = this.props
+		const { to } = this.props
 		const paths = ['/', '/polls', '/add', '/leaderboard', '/question', '/register']
 		const { from } = to.state || { from : { pathname: '/' } }
 		const authedUser = {firstName: newUser.firstName, lastName: newUser.lastName, password: newUser.password}

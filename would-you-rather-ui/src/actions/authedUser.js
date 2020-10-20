@@ -14,8 +14,8 @@ export function handleAuthedUser ({username, password}) {
         Object.keys(users).includes(user.username)
             ? users[user.username].password === user.password
             	? dispatch(setAuthedUser(user.username))
-            	: alert('Username or password is incorrect please try again or register')
-            : alert('Username or password is incorrect please try again or register')
+            	: alert('User name or password is incorrect. Please try again or register.')
+            : alert('User name or password is incorrect. Please try again or register.')
 
     }
 }

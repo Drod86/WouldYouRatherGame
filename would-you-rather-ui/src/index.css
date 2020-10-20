@@ -3,10 +3,25 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+    border: 2px solid red;
+    background-size: cover;
+    background-image: linear-gradient(red, yellow);
+    background-repeat: no-repeat;
+    height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
   monospace;
+}
+
+@media only screen and (max-width: 768px) {
+  .nonMobile {
+  	display: none;
+  }
+}
+
+.App {
+	border: 2px solid red;
 }
 

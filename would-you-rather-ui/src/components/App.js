@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
-import { handleAuthedUser, setAuthedUser } from '../actions/authedUser'
-import Login from './Login'
+import { setAuthedUser } from '../actions/authedUser'
 import Dashboard from './Dashboard'
 import Question from './Question'
 import PrivateRoute from './PrivateRoute'
+import '../index.css';
 import {
 	BrowserRouter as Router,
 	Switch,
-	Route,
 	Link
 } from 'react-router-dom'
 

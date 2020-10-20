@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import '../index.css';
 
 class Welcome extends Component {
 	render(){
 		return(
-			<header class='Welcome'>
+			<header className='Welcome'>
 	    		{ this.props.user && (
 	    		<h2>Welcome {this.props.user.name}! Your score: {Object.keys(this.props.user.answers).length + this.props.user.questions.length}</h2>
 	    		)}
