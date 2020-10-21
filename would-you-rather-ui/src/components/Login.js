@@ -15,7 +15,8 @@ class Login extends Component {
 			lastName: '',
 			password: '',
 			avatarUrl: ''
-		}
+		},
+		confirmPassword: ''
 	}
 
 	changeDisplay = (field, display) => {
@@ -48,15 +49,36 @@ class Login extends Component {
 		}
 	}
 
+	changeDisplayTwo = () => {
+		this.state.display === 'none'
+			? this.setState(prevState => ({
+				display: '',
+				displayRegister: 'none'
+			  }))
+			: this.state.displayRegister === 'none'
+				? this.setState(prevState => ({
+					display: '',
+					displayRegister: ''
+				  }))
+				: this.setState(prevState => ({
+					display: '',
+					displayRegister: 'none'
+				}))
+	}
+
 	authedUser = (authedUser, form) => {
 		let username = authedUser.firstName.toLowerCase().concat(authedUser.lastName.toLowerCase())
 		let user = { username: username, password: generatePassword(authedUser.password)}
 		const { firstName, lastName, password } = this.state.newUser
-		firstName !== '' || lastName !== '' || password !== ''
+
+		 firstName !== '' || lastName !== '' || password !== ''
 			? form === 'login'
 				? this.props.dispatch(handleAuthedUser(user))
-				: this.props.dispatch(handleNewUser(authedUser))
+				: password === this.state.confirmPassword
+					? this.props.dispatch(handleNewUser(authedUser))
+					: alert('Password entries do not match. Please try again.')
 			: alert('Please complete required fields.')
+
 	}
 
 	collectInput = (field, text) => {
@@ -89,6 +111,13 @@ class Login extends Component {
 					}
 				}))
 				break;
+			case 'confirmPassword':
+				this.setState((curState) => (
+				 {...curState,
+						...{confirmPassword: text}
+					}
+				))
+				break;
 			default:
 				this.setState((curState) => ({
 					curState
@@ -103,36 +132,25 @@ class Login extends Component {
 		const { from } = to.state || { from : { pathname: '/' } }
 		const authedUser = {firstName: newUser.firstName, lastName: newUser.lastName, password: newUser.password}
 		return(
-			<div className='Login_Register_form'>
-				<h1>Would You Rather...</h1>
-				<div>
-				<div className='Login' style={{display: display}}>
-				<h4>First Name</h4>
-	                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
-	                <h4>Last Name</h4>
-	                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
-	                <h4>Password</h4>
-	                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
-				{paths.includes(from.pathname)
-					? <button onClick={e => this.authedUser(authedUser, 'login')}><Link to={from}>Login</Link></button>
-					: <button onClick={e => this.authedUser(authedUser, 'login')}><Redirect to='/'>Login</Redirect></button>
-				}
-				</div>
-				</div>
-				<div className='Register' style={{display: displayRegister}}>
-	                <h3>Register</h3>
-	                <h4>First Name</h4>
-	                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
-	                <h4>Last Name</h4>
-	                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
-	                <h4>Avatar URL</h4>
-	                <input placeholder='Optional' type='text' onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl'/>
-	                <h4>Password</h4>
-	                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
-	                <Link to='/howto'>
-	                <button onClick={() => this.authedUser(newUser, 'register')}>Register</button></Link>
-            	</div>
-            	<button onClick={() => this.changeDisplay('display', display)}>{displayRegister === '' ? 'Login' : display === 'none' ? 'Login?' : 'Register'}</button>
+			<div className='Login'>
+				<h1 className='wouldYouRather' style={{display: display === 'none' && displayRegister === 'none' ? '' : 'none', marginTop: '10vh'}}>Would You Rather...</h1>
+					<div className='loginForm' style={{display: display}}>
+						<h1 className='wouldYouRather'>Would You Rather...</h1>
+						<h3>{displayRegister === 'none' ? 'Login' : 'Register'}</h3>
+		                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
+		                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
+		                <input placeholder='Avatar URL (optional)' type='text' onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl' style={{display: displayRegister}}/>
+		                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
+		                <input placeholder='Confirm Password' type='text' onChange={e => this.collectInput('confirmPassword', e.target.value)} name='confirmPassword' style={{display: displayRegister}} required/>
+						{paths.includes(from.pathname)
+							? <button className='loginBtn' onClick={e => this.authedUser(authedUser, 'login')} style={{display: displayRegister === '' ? 'none' : ''}}><Link to={from}>Login</Link></button>
+							: <button className='loginBtn' onClick={e => this.authedUser(authedUser, 'login')} style={{display: displayRegister === '' ? 'none' : ''}}><Redirect to='/'>Login</Redirect></button>
+						}
+						<Link to='/howto'>
+		                <button className='loginBtn' onClick={() => this.authedUser(newUser, 'register')} style={{display: displayRegister}}>Register</button></Link>
+					</div>
+				<h1 className='or' style={{ display: display }} >--or--</h1>
+            	<button className='loginBtn' onClick={() => this.changeDisplayTwo()}>{display === 'none' ? 'Login?' : displayRegister === 'none' ? 'Register' : 'Login'}</button>
 			</div>
 		)
 	}

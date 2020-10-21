@@ -17,18 +17,19 @@ import {
 const Dashboard = () => {
 	let match = useRouteMatch();
 	return(
-		<Router className='Dashboard'>
-			<div>
-				<aside className='nonMobile'>
+		<Router >
+			<div className='Dashboard'>
+				<div className='nonMobile polls'>
 					<Polls />
-				</aside>
-				<nav>
+				</div>
+				<div className='main'>
+				<nav className='nav'>
 					<Nav />
 				</nav>
-				<header>
+				<header className='welcome'>
 					<Welcome />
 				</header>
-				<section>
+				<section className='main'>
 					<Switch>
 						<Route exact path={match.path} component={HowTo} />
 						<Route path={`${match.path}polls`} component={Polls} />
@@ -37,9 +38,10 @@ const Dashboard = () => {
 						<Route path={`${match.path}question`} component={Question} />
 					</Switch>
 				</section>
-				<aside className='nonMobile'>
+				</div>
+				<div className='nonMobile leaders'>
 					<Leaders />
-				</aside>
+				</div>
 			</div>
 		</Router>
 	)

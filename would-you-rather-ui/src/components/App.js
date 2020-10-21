@@ -31,17 +31,21 @@ class App extends Component {
 		const { display } = this.state
 		const { authedUser, dispatch } = this.props
 		return(
-			<Router className='App'>
-				<div style={{display: display}}>
-					<Switch>
-						<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
-					</Switch>
-					<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
+			<Router >
+				<div className='App'>
+					<div style={{display: display}} className='center'>
+						<Switch>
+							<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
+						</Switch>
+						<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
+					</div>
+					<div className='App2'>
+					<h3 className='or' style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
+						<Question className='question' display={!display} />
+						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: authedUser === null ? display : 'none'}}>Quick Play?</button>
+						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>
+					</div>
 				</div>
-				<h3 style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
-				<Question display={!display} />
-				<button onClick={() => this.changeDisplay(display)} style={{display: authedUser === null ? display : 'none'}}>Quick Play?</button>
-				<button onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>
 			</Router>
 		)
 	}
