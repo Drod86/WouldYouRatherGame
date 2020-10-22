@@ -14,9 +14,105 @@ code {
 }
 
 @media only screen and (max-width: 768px) {
-  .nonMobile {
-  	display: none;
-  }
+
+	.nonMobile {
+		display: none;
+	}
+
+
+	.App {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+	}
+	.App a {
+		text-decoration: none;
+		color: black;
+	}
+
+	.wouldYouRather {
+		border: 1px solid white;
+		font-size: 6vw;
+		margin: 0;
+		padding: 5px;
+	}
+
+	.Login h3 {
+		border: 1px solid white;
+		margin: 0;
+	}
+
+	.Login input {
+		width: 60vw;
+		margin: 1vh;
+		border-radius: 5px;
+		font-size: 4vh;
+		padding: 10px;
+		border: none;
+	}
+
+	.Login {
+		font-size: 3vh;
+		width: 80vw;
+		text-align: center;
+	}
+
+	.loginForm {
+		font-size: 1.3em;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.loginBtn {
+		width: 64vw;
+		border-radius: 5px;
+		border: none;
+		font-size: 4vh;
+		height: 8vh;
+		color: black;
+	}
+
+	.passwordBtn {
+		margin: 5px;
+	}
+
+	.or {
+		font-size: 4vh;
+		width: 100%;
+		text-align: center;
+		margin: 3px 0 6px;
+	}
+
+	.App2 {
+		width: 80vw;
+		font-size: 1.5em;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+	}
+
+	.Dashboard {
+		display: inline-grid;
+		grid-template-columns: 1fr 3fr 1fr;
+	}
+
+	.polls {
+		grid-column: 1/1;
+		background-color: green;
+	}
+
+	.main {
+		grid-column: 2/4;
+		border: 1px solid black;
+	}
+
+	.leaders {
+		grid-column: 2/4;
+		border: 1px solid red;
+	}
 }
 
 .App {
@@ -24,6 +120,15 @@ code {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	background-image: linear-gradient(to bottom left, rgba(12.9, 12.9, 12.9, 1), rgba(12.9, 12.9,12.9, 1), rgba(12.9, 12.9, 12.9, .1)), linear-gradient(to top, rgba(12.9, 12.9, 12.9, 1), rgba(12.9, 12.9,12.9, 0), rgba(12.9, 12.9,12.9, 0), rgba(12.9, 12.9, 12.9, 0)), url("https://image.freepik.com/free-vector/flat-question-mark-background_23-2148175263.jpg");
+	background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+	width: 70vw;
+	padding: 5px;
+	margin: auto;
+	margin-top: 5vh;
+	min-height: 90vh;
 }
 .App a {
 	text-decoration: none;
@@ -31,14 +136,14 @@ code {
 }
 
 .center {
-
+	height: 50%;
 }
 
 .wouldYouRather {
-	border: 1px solid white;
+	color: white;
 	font-size: 6vw;
 	margin: 0;
-	padding: 5px;
+	padding: 0 0 30px;
 }
 
 .Login h3 {
@@ -47,7 +152,6 @@ code {
 }
 
 .Login input {
-	width: 60vw;
 	margin: 1vh;
 	border-radius: 5px;
 	font-size: 4vh;
@@ -57,7 +161,6 @@ code {
 
 .Login {
 	font-size: 3vh;
-	width: 80vw;
 	text-align: center;
 }
 
@@ -69,15 +172,23 @@ code {
 }
 
 .loginBtn {
-	width: 64vw;
 	border-radius: 5px;
 	border: none;
 	font-size: 4vh;
 	height: 8vh;
 	color: black;
+	width: 310px;
 }
 
+.passwordBtn {
+		margin: 5px 0px 9px;
+		border: none;
+		border-radius: 5px;
+		padding: 5px;
+	}
+
 .or {
+	color: white;
 	font-size: 4vh;
 	width: 100%;
 	text-align: center;
@@ -90,8 +201,9 @@ code {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-
 }
+
+.quickPlay
 
 .Dashboard {
 	display: inline-grid;

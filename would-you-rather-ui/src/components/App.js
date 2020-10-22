@@ -14,7 +14,8 @@ import {
 
 class App extends Component {
 	state = {
-		display: ''
+		display: '',
+		size: true
 	}
 
 	componentDidMount () {
@@ -26,23 +27,28 @@ class App extends Component {
 		? this.setState({display: ''})
 		: this.setState({display: 'none'})
 	}
+	changSize () {
+		this.setState((curState) => ({
+			size: false
+		}))
+	}
 
 	render(){
-		const { display } = this.state
+		const { display, size } = this.state
 		const { authedUser, dispatch } = this.props
 		return(
 			<Router >
 				<div className='App'>
-					<div style={{display: display}} className='center'>
+					<div style={{display: display}} className='center' onClick={() => this.changSize()}>
 						<Switch>
 							<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
 						</Switch>
 						<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
 					</div>
-					<div className='App2'>
-					<h3 className='or' style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
+					<div className='App2' style={{height: size && '35vh'}}>
+						<h3 className='or' style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
 						<Question className='question' display={!display} />
-						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: authedUser === null ? display : 'none'}}>Quick Play?</button>
+						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: authedUser === null ? display : 'none', backgroundColor: '#fbae00'}}>Quick Play?</button>
 						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>
 					</div>
 				</div>

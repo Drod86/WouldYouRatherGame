@@ -16,7 +16,41 @@ class Login extends Component {
 			password: '',
 			avatarUrl: ''
 		},
-		confirmPassword: ''
+		confirmPassword: '',
+		showPassword: false
+	}
+
+	toggleShowPassword = (state) => {
+		this.setState({
+				showPassword: !state
+		})
+	}
+
+	resetFields = (fields) => {
+		switch (fields) {
+			case 'password' :
+				this.setState((curState) => ({
+						newUser: {...curState.newUser,
+							...{password: ''}
+						},
+						confirmPassword: ''
+					}));
+				alert('Password entries do not match. Please try again.')
+				break;
+			default :
+				this.setState((curState) => ({
+						display: 'none',
+						displayRegister: 'none',
+						newUser: {
+							firstName: '',
+							lastName: '',
+							password: '',
+							avatarUrl: ''
+						},
+						confirmPassword: '',
+						showPassword: false
+					}));
+		}
 	}
 
 	changeDisplay = (field, display) => {
@@ -76,7 +110,7 @@ class Login extends Component {
 				? this.props.dispatch(handleAuthedUser(user))
 				: password === this.state.confirmPassword
 					? this.props.dispatch(handleNewUser(authedUser))
-					: alert('Password entries do not match. Please try again.')
+					: this.resetPasswordFields('password')
 			: alert('Please complete required fields.')
 
 	}
@@ -126,7 +160,7 @@ class Login extends Component {
 	}
 
 	render(){
-		const { display, displayRegister, newUser } = this.state
+		const { display, displayRegister, newUser, showPassword } = this.state
 		const { to } = this.props
 		const paths = ['/', '/polls', '/add', '/leaderboard', '/question', '/register']
 		const { from } = to.state || { from : { pathname: '/' } }
@@ -140,17 +174,18 @@ class Login extends Component {
 		                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
 		                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
 		                <input placeholder='Avatar URL (optional)' type='text' onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl' style={{display: displayRegister}}/>
-		                <input placeholder='Password' type='text' onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
-		                <input placeholder='Confirm Password' type='text' onChange={e => this.collectInput('confirmPassword', e.target.value)} name='confirmPassword' style={{display: displayRegister}} required/>
+		                <input placeholder='Password' type={showPassword ? 'text' : 'password'} value={this.state.newUser.password} onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
+		                <input placeholder='Confirm Password' type={showPassword ? 'text' : 'password'} value={this.state.confirmPassword} onChange={e => this.collectInput('confirmPassword', e.target.value)} name='confirmPassword' style={{display: displayRegister}} required/>
+						<button className='passwordBtn' onClick={() => this.toggleShowPassword(showPassword)}>{this.state.showPassword === true ? 'hide password' : 'show password'}</button>
 						{paths.includes(from.pathname)
-							? <button className='loginBtn' onClick={e => this.authedUser(authedUser, 'login')} style={{display: displayRegister === '' ? 'none' : ''}}><Link to={from}>Login</Link></button>
-							: <button className='loginBtn' onClick={e => this.authedUser(authedUser, 'login')} style={{display: displayRegister === '' ? 'none' : ''}}><Redirect to='/'>Login</Redirect></button>
+							? <button className='loginBtn' onClick={e => this.authedUser(authedUser, 'login')} style={{display: displayRegister === '' ? 'none' : '', backgroundColor: '#ff4181'}}><Link to={from}>Login</Link></button>
+							: <button className='loginBtn' onClick={e => this.authedUser(authedUser, 'login')} style={{display: displayRegister === '' ? 'none' : '', backgroundColor: '#ff4181'}}><Redirect to='/'>Login</Redirect></button>
 						}
 						<Link to='/howto'>
-		                <button className='loginBtn' onClick={() => this.authedUser(newUser, 'register')} style={{display: displayRegister}}>Register</button></Link>
+		                <button className='loginBtn' onClick={() => this.authedUser(newUser, 'register')} style={{display: displayRegister, backgroundColor: '#0090f0'}}>Register</button></Link>
 					</div>
 				<h1 className='or' style={{ display: display }} >--or--</h1>
-            	<button className='loginBtn' onClick={() => this.changeDisplayTwo()}>{display === 'none' ? 'Login?' : displayRegister === 'none' ? 'Register' : 'Login'}</button>
+            	<button className='loginBtn' onClick={() => this.changeDisplayTwo()} style={{backgroundColor: display === 'none' ? '#ff4181' : displayRegister === 'none' ? '#0090f0' : '#ff4181'}}>{display === 'none' ? 'Login?' : displayRegister === 'none' ? 'Register' : 'Login'}</button>
 			</div>
 		)
 	}
