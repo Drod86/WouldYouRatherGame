@@ -39,8 +39,6 @@ class Login extends Component {
 				break;
 			default :
 				this.setState((curState) => ({
-						display: 'none',
-						displayRegister: 'none',
 						newUser: {
 							firstName: '',
 							lastName: '',
@@ -50,36 +48,6 @@ class Login extends Component {
 						confirmPassword: '',
 						showPassword: false
 					}));
-		}
-	}
-
-	changeDisplay = (field, display) => {
-		switch(field) {
-			case 'display':
-				return display === ''
-				? this.setState(prevState => ({
-					display: 'none',
-					displayRegister: ''
-					}))
-				: this.setState(prevState => ({
-					display: '',
-					displayRegister: 'none'
-					}))
-			case 'displayRegister':
-				return display === ''
-				? this.setState(prevState => ({
-					display: '',
-					displayRegister: 'none'
-					}))
-				: this.setState(prevState => ({
-					display: 'none',
-					displayRegister: ''
-					}))
-			default :
-				return this.setState(prevState => ({
-					display: '',
-					displayRegister: 'none'
-				}))
 		}
 	}
 
@@ -98,6 +66,7 @@ class Login extends Component {
 					display: '',
 					displayRegister: 'none'
 				}))
+		this.resetFields()
 	}
 
 	authedUser = (authedUser, form) => {
@@ -110,7 +79,7 @@ class Login extends Component {
 				? this.props.dispatch(handleAuthedUser(user))
 				: password === this.state.confirmPassword
 					? this.props.dispatch(handleNewUser(authedUser))
-					: this.resetPasswordFields('password')
+					: this.resetFields('password')
 			: alert('Please complete required fields.')
 
 	}
@@ -171,9 +140,9 @@ class Login extends Component {
 					<div className='loginForm' style={{display: display}}>
 						<h1 className='wouldYouRather'>Would You Rather...</h1>
 						<h3>{displayRegister === 'none' ? 'Login' : 'Register'}</h3>
-		                <input placeholder='First Name' type='text' onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
-		                <input placeholder='Last Name' type='text' onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
-		                <input placeholder='Avatar URL (optional)' type='text' onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl' style={{display: displayRegister}}/>
+		                <input placeholder='First Name' type='text' value={this.state.newUser.firstName} onChange={e => this.collectInput('firstName', e.target.value)} name='firstName' required/>
+		                <input placeholder='Last Name' type='text' value={this.state.newUser.lastName} onChange={e => this.collectInput('lastName', e.target.value)} name='LastName' required/>
+		                <input placeholder='Avatar URL (optional)' type='text' value={this.state.newUser.avatarUrl} onChange={e => this.collectInput('avatarUrl', e.target.value)} name='avatarUrl' style={{display: displayRegister}}/>
 		                <input placeholder='Password' type={showPassword ? 'text' : 'password'} value={this.state.newUser.password} onChange={e => this.collectInput('password', e.target.value)} name='password' required/>
 		                <input placeholder='Confirm Password' type={showPassword ? 'text' : 'password'} value={this.state.confirmPassword} onChange={e => this.collectInput('confirmPassword', e.target.value)} name='confirmPassword' style={{display: displayRegister}} required/>
 						<button className='passwordBtn' onClick={() => this.toggleShowPassword(showPassword)}>{this.state.showPassword === true ? 'hide password' : 'show password'}</button>

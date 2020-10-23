@@ -21,10 +21,10 @@ code {
 
 
 	.App {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
+		position: absolute;
+		top: -5vh;
+		min-width: 100vw;
+		min-height: 100vh;
 	}
 	.App a {
 		text-decoration: none;
@@ -115,17 +115,20 @@ code {
 	}
 }
 
+
+/* Container App Page */
+
 .App {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	background-image: linear-gradient(to bottom left, rgba(12.9, 12.9, 12.9, 1), rgba(12.9, 12.9,12.9, 1), rgba(12.9, 12.9, 12.9, .1)), linear-gradient(to top, rgba(12.9, 12.9, 12.9, 1), rgba(12.9, 12.9,12.9, 0), rgba(12.9, 12.9,12.9, 0), rgba(12.9, 12.9, 12.9, 0)), url("https://image.freepik.com/free-vector/flat-question-mark-background_23-2148175263.jpg");
-	background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover;
+	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
 	width: 70vw;
-	padding: 5px;
+	padding: 0 5px 5px;
 	margin: auto;
 	margin-top: 5vh;
 	min-height: 90vh;
@@ -139,6 +142,16 @@ code {
 	height: 50%;
 }
 
+.App2 {
+	width: 80vw;
+	font-size: 1.5em;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+/* Login Page */
+
 .wouldYouRather {
 	color: white;
 	font-size: 6vw;
@@ -147,7 +160,7 @@ code {
 }
 
 .Login h3 {
-	border: 1px solid white;
+	color: white;
 	margin: 0;
 }
 
@@ -181,13 +194,37 @@ code {
 }
 
 .passwordBtn {
-		margin: 5px 0px 9px;
-		border: none;
-		border-radius: 5px;
-		padding: 5px;
-	}
+	margin: 5px 0px 9px;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+}
 
 .or {
+	color: white;
+	font-size: 4vh;
+	width: 100%;
+	text-align: center;
+	margin: 3px 0 10px;
+}
+
+/* Question Page */
+
+.Question {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	height: 60vh;
+}
+
+.Question h2 {
+	color: white;
+	font-size: 6vw;
+	margin: 0;
+	padding: 0 0 30px;
+}
+
+.Question h3 {
 	color: white;
 	font-size: 4vh;
 	width: 100%;
@@ -195,15 +232,32 @@ code {
 	margin: 3px 0 6px;
 }
 
-.App2 {
-	width: 80vw;
-	font-size: 1.5em;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+.quickPlay {
+	height: 35vh;
 }
 
-.quickPlay
+.opt {
+	border: none;
+	border-radius: 5px;
+	font-size: 3vh;
+	min-height: 14vh;
+	color: black;
+	width: 310px;
+}
+
+#opt1 {
+	background-color: #ff4181;
+}
+
+#opt2 {
+	background-color: #0090f0;
+}
+
+.Question .submit {
+	background-color: #fbae00;
+}
+
+/* Dashboard Page */
 
 .Dashboard {
 	display: inline-grid;

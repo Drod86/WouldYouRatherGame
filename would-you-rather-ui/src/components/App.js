@@ -15,41 +15,83 @@ import {
 class App extends Component {
 	state = {
 		display: '',
-		size: true
+		size: true,
+		loginOpen: false
 	}
 
 	componentDidMount () {
 		this.props.dispatch(handleInitialData())
 	}
 
-	changeDisplay (arg) {
-		return arg === 'none'
-		? this.setState({display: ''})
-		: this.setState({display: 'none'})
+	changeDisplay (button) {
+		console.log(button)
+		switch (button) {
+			case 'quick':
+				this.state.loginOpen === false
+					? this.setState({
+						display: 'none',
+						loginOpen: false,
+						size: false
+						})
+					: this.setState({
+						display: 'none',
+						loginOpen: true,
+						size: false
+						})
+				break;
+			case 'final' :
+				this.state.loginOpen === false
+					? this.setState({
+						display: '',
+						loginOpen: false,
+						size: true
+						})
+					: this.setState({
+						display: '',
+						loginOpen: true,
+						size: false
+					})
+				break;
+			case 'login' :
+				this.setState({
+					display: '',
+					loginOpen: true,
+					size: false
+				})
+				break;
+			default :
+				this.setState({
+					display: '',
+					loginOpen: false,
+					size: true
+					})
+		}
 	}
-	changSize () {
-		this.setState((curState) => ({
-			size: false
-		}))
+
+	signOut(){
+		this.props.dispatch(setAuthedUser(null));
+		this.changeDisplay()
 	}
+
 
 	render(){
 		const { display, size } = this.state
 		const { authedUser, dispatch } = this.props
 		return(
 			<Router >
-				<div className='App'>
-					<div style={{display: display}} className='center' onClick={() => this.changSize()}>
+				<div className='App' style={{width: authedUser !== null && '90vw'}}>
+					<div style={{display: display}} className='center' onClick={() => this.changeDisplay('login')}>
 						<Switch>
 							<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
 						</Switch>
-						<Link to='/'><button onClick={() => dispatch(setAuthedUser(null))} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
+
 					</div>
+					<Link to='/'><button onClick={() => this.signOut()} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
 					<div className='App2' style={{height: size && '35vh'}}>
 						<h3 className='or' style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
 						<Question className='question' display={!display} />
-						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: authedUser === null ? display : 'none', backgroundColor: '#fbae00'}}>Quick Play?</button>
-						<button className='loginBtn' onClick={() => this.changeDisplay(display)} style={{display: display === 'none' ? '' : 'none'}}>Final Answer</button>
+						<button className='loginBtn' onClick={() => this.changeDisplay('quick')} style={{display: authedUser === null ? display : 'none', backgroundColor: '#fbae00'}}>Quick Play?</button>
+						<button className='loginBtn' onClick={() => this.changeDisplay('final')} style={{display: display === 'none' ? '' : 'none', backgroundColor: '#fbae00'}}>Final Answer</button>
 					</div>
 				</div>
 			</Router>

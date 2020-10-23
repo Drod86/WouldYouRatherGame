@@ -46,18 +46,18 @@ class Question extends Component {
 				{authedUser === undefined
  					? questionIds.length === 0
  						? <div>Loading...</div>
- 						: <div style={{display: display}}>
-						    <button id='opt1' >{optionText(opt1)}?</button>
+ 						: <div className='quickPlay' style={{display: display}}>
+						    <button className='opt' id='opt1' >{optionText(opt1)}?</button>
 						    <h3>--or--</h3>
-						    <button id='opt2' >{optionText(opt2)}?</button>
+						    <button className='opt' id='opt2' >{optionText(opt2)}?</button>
 						  </div>
 					: question !== undefined
 						? <div>
 							<UserInfo id={question.author} />
-							<button id='opt1' onClick={e => this.setChoice(opt1)} style={{border: usersAnswer() === opt1 && border}}>{optionText(opt1)}?</button>
+							<button className='opt' id='opt1' onClick={e => this.setChoice(opt1)} style={{border: usersAnswer() === opt1 && border}}>{optionText(opt1)}?</button>
 							<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt1)}  / choice of {choiceAverage(opt1)}% of players</p>
 							<h3 className='or'>--or--</h3>
-							<button id='opt2' onClick={e => this.setChoice(opt2)} style={{border: usersAnswer() === opt2 && border}}>{optionText(opt2)}?</button>
+							<button className='opt' id='opt2' onClick={e => this.setChoice(opt2)} style={{border: usersAnswer() === opt2 && border}}>{optionText(opt2)}?</button>
 						  	<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt2)}  / choice of {choiceAverage(opt2)}% of players</p>
 							<Link to='/' >
 						  	{isAnswered()
