@@ -42,7 +42,7 @@ class Question extends Component {
 		const border = '2px solid red'
 		return(
 			<div className='Question' style={{display: display ? 'none' : ''}}>
-				<h2>Would You Rather...</h2>
+				<h3>Would You Rather...</h3>
 				{authedUser === undefined
  					? questionIds.length === 0
  						? <div>Loading...</div>
@@ -52,7 +52,7 @@ class Question extends Component {
 						    <button className='opt' id='opt2' >{optionText(opt2)}?</button>
 						  </div>
 					: question !== undefined
-						? <div>
+						? <div className='answered'>
 							<UserInfo id={question.author} />
 							<button className='opt' id='opt1' onClick={e => this.setChoice(opt1)} style={{border: usersAnswer() === opt1 && border}}>{optionText(opt1)}?</button>
 							<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt1)}  / choice of {choiceAverage(opt1)}% of players</p>
@@ -71,7 +71,7 @@ class Question extends Component {
 						  </div>
 						: <div style={{display: display ? 'none' : ''}}>
 							<h1>404</h1>
-							<h4>This poll quesetion is not available</h4>
+							<h4>This poll question is not available</h4>
 						  </div>
 				}
 			</div>

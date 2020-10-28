@@ -9,9 +9,8 @@ class UserInfo extends Component {
         const added = Object.keys(questions).length
         const score = answered + added
         return(
-            <div className='User_Info'>
-                <span>
-                    <img alt='avatar' src={avatarURL} />
+            <div id='User_Info'>
+                    <img className='avatar' alt='avatar' src={avatarURL} />
                     <h4 className='name'>{name}</h4>
                     {this.props.score && (
                         <span className='scores'>
@@ -20,7 +19,6 @@ class UserInfo extends Component {
                             <h5 className='score'>Score: {score}</h5>
                         </span>)
                     }
-                </span>
             </div>
         )
     }

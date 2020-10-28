@@ -23,21 +23,21 @@ const Dashboard = () => {
 					<Polls />
 				</div>
 				<div className='main'>
-				<nav className='nav'>
-					<Nav />
-				</nav>
-				<header className='welcome'>
-					<Welcome />
-				</header>
-				<section className='main'>
-					<Switch>
-						<Route exact path={match.path} component={HowTo} />
-						<Route path={`${match.path}polls`} component={Polls} />
-						<Route path={`${match.path}add`} component={Add} />
-						<Route path={`${match.path}leaderboard`} component={Leaders} />
-						<Route path={`${match.path}question`} component={Question} />
-					</Switch>
-				</section>
+					<nav className='nav'>
+						<Nav />
+					</nav>
+					<header className='welcome'>
+						<Welcome />
+					</header>
+					<section>
+						<Switch>
+							<Route exact path={match.path} component={HowTo} />
+							<Route path={`${match.path}polls`} component={Polls} />
+							<Route path={`${match.path}add`} component={Add} />
+							<Route path={`${match.path}leaderboard`} component={Leaders} />
+							<Route path={`${match.path}question`} component={Question} />
+						</Switch>
+					</section>
 				</div>
 				<div className='nonMobile leaders'>
 					<Leaders />

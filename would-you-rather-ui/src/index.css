@@ -146,8 +146,9 @@ code {
 	width: 80vw;
 	font-size: 1.5em;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+	flex-flow: column wrap;
+	border: 1px solid blue;
+	align-content: center;
 }
 
 /* Login Page */
@@ -191,6 +192,7 @@ code {
 	height: 8vh;
 	color: black;
 	width: 310px;
+	align-self: center;
 }
 
 .passwordBtn {
@@ -213,8 +215,18 @@ code {
 .Question {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: center;
 	height: 60vh;
+	border: 1px solid pink;
+	text-align: center;
+}
+
+.answered {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	border: 5px solid green;
+	width: 90%;
 }
 
 .Question h2 {
@@ -255,26 +267,171 @@ code {
 
 .Question .submit {
 	background-color: #fbae00;
+	border: none;
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	margin: 3vh 0;
+}
+
+.Question .backBtn {
+	width: 100%;
+	border: none;
+	border-radius: 5px;
 }
 
 /* Dashboard Page */
 
 .Dashboard {
-	display: inline-grid;
-	grid-template-columns: 1fr 3fr 1fr;
+	color: white;
+	display: flex;
+	border: 3px solid green;
+	text-align: center;
 }
 
-.polls {
-	grid-column: 1/1;
-	background-color: green;
+#Polls {
+	display: flex;
+	padding: 10px;
+	justify-content: flex-start;
+	flex-flow: column wrap;
+	max-height: 100vh;
+	border: 3px solid red;
+	width: 100%;
+	text-align: center;
+}
+
+#Polls .nav {
+	border: 3px solid orange;
+	padding: 0;
+	display: flex;
+}
+
+#Polls .nav ul {
+	display: flex;
+	width: 100%;
+	justify-content: flex-start;
+	padding: 0;
+	border: 1px solid aqua;
+}
+
+#Polls .nav ul li {
+	list-style-type: none;
+	border: 1px solid white;
+	width: 50%;
+	padding: 5px;
+	border-radius: 5px 5px 0 0;
+	border: 1px solid white;
+}
+
+#Polls .nav ul li:active {
+	background-color: white;
+	color: black;
+	border: 1px solid white;
+}
+
+.pollLists {
+	flex-wrap: wrap;
+	border: 1px solid blue;
+}
+
+.pollList {
+	display: flex;
+	flex-flow: column wrap;
+	margin: 0;
+	padding: 0;
+	justify-content: flex-start;
+	border: 1px solid orange;
+}
+
+.pollList button {
+	width: 100%;
+	border: 1px solid white;
+}
+
+.pollList button:hover {
+	background-color: black;
+	color: white;
+	border: 1px solid white;
 }
 
 .main {
-	grid-column: 2/4;
-	border: 1px solid black;
+	color: white;
+	display: flex;
+	flex-flow: column wrap;
+	border: 1px solid blue;
+	min-height: 95vh;
+}
+
+.nav {
+	border: 1px solid white;
+}
+
+.Nav {
+	display: flex;
+	justify-content: center;
+	border: 1px solid white;
+	width: 50vw;
+}
+
+.Nav li {
+	list-style-type: none;
+	border: 1px solid white;
+}
+
+.Nav a {
+	color: white;
+	border: 1px solid white;
+}
+
+/* Leaderboard */
+
+.Leaderboard {
+	display: flex;
+	flex-flow: column wrap;
+	border: 3px solid red;
+	padding: 0 10px;
+	width: 20vw;
+
+}
+
+.Leaderboard ul {
+	border: 1px solid red;
+	padding: 0;
+}
+
+#User_Info {
+	display: flex;
+	border: 1px solid red;
+	margin: 0;
+	font-size: .5em;
+}
+
+.avatar {
+	width: 3vw;
+	height: 3vw;
+	margin: auto auto auto 1vw;
+	align-self: flex-end;
+	border: 2px solid white;
+	border-radius: 50%;
+	text-align: center;
+}
+
+.scores {
+	display: flex;
+	justify-content: space-between;
+	border: 1px solid white;
+}
+
+.scores h5 {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid green;
 }
 
 .leaders {
-	grid-column: 2/4;
-	border: 1px solid red;
+	display: flex;
+	border: 1px solid green;
+	width: 25vw;
+	max-height: 100vh;
+	padding: 0;
 }

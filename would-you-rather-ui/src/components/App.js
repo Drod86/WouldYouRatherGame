@@ -79,7 +79,7 @@ class App extends Component {
 		const { authedUser, dispatch } = this.props
 		return(
 			<Router >
-				<div className='App' style={{width: authedUser !== null && '90vw'}}>
+				<div className='App' style={{width: authedUser === null ? '90vw' : '100vw', margin: authedUser !== null && '0'}}>
 					<div style={{display: display}} className='center' onClick={() => this.changeDisplay('login')}>
 						<Switch>
 							<PrivateRoute path='/' component={Dashboard} isAuthenticated={authedUser} />
