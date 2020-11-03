@@ -39,7 +39,7 @@ class Question extends Component {
 		const usersAnswer = () => authedUser.answers[question.id]
 		const votes = (option) => question[option].votes.length
 		const choiceAverage = (option) => (question[option].votes.length / Object.keys(users).length * 100).toFixed(2)
-		const border = '2px solid red'
+		const border = '3px solid white'
 		return(
 			<div className='Question' style={{display: display ? 'none' : ''}}>
 				<h3>Would You Rather...</h3>

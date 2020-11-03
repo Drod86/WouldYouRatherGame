@@ -22,18 +22,24 @@ class AddQuestion extends Component {
 		})
 	}
 
+	disable(){
+		return 'disabled'
+	}
+
 	render() {
 		const { optionOne, optionTwo } = this.state
 		const { dispatch } = this.props
 		return(
-			<div className='Add'>
-                <h3>AddQuestion</h3>
-                <h4>Would you rather...?</h4>
-                <input placeholder='Option One' type='text' onChange={e => this.addOptionOne(e.target.value)} />
+			<div id='Add'>
+                <h3 style={{textDecoration: 'underline'}}>AddQuestion</h3>
+                <h3>Would you rather...?</h3>
+                <input className='opt' placeholder='Option One' type='text' onChange={e => this.addOptionOne(e.target.value)} />
                 <p>--or--</p>
-                <input placeholder='Option Two' type='text' onChange={e => this.addOptionTwo(e.target.value)} />
-                <Link to='/'>
-                <button onClick={() => dispatch(handleAddQuestion(optionOne, optionTwo))}>Add</button></Link>
+                <input className='opt' placeholder='Option Two' type='text' onChange={e => this.addOptionTwo(e.target.value)} />
+                {optionOne === '' || optionTwo === ''
+                	? <button className='add' disabled style={{color: 'grey'}}>Add</button>
+                	: <Link to='/'><button className='add' onClick={() => dispatch(handleAddQuestion(optionOne, optionTwo))}>Add</button></Link>
+            	}
             </div>
 		)
 	}

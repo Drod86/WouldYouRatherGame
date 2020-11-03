@@ -86,9 +86,9 @@ class App extends Component {
 						</Switch>
 
 					</div>
-					<Link to='/'><button onClick={() => this.signOut()} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
+					<Link to='/'><button id='signOut' onClick={() => this.signOut()} style={{display: authedUser === null && 'none'}}>Sign Out</button></Link>
 					<div className='App2' style={{height: size && '35vh'}}>
-						<h3 className='or' style={{display: authedUser === null ? display : 'none'}}>--or--</h3>
+						<h3 className='or' style={{display: authedUser === null ? display : 'none', paddingBottom: '45px'}}>--or--</h3>
 						<Question className='question' display={!display} />
 						<button className='loginBtn' onClick={() => this.changeDisplay('quick')} style={{display: authedUser === null ? display : 'none', backgroundColor: '#fbae00'}}>Quick Play?</button>
 						<button className='loginBtn' onClick={() => this.changeDisplay('final')} style={{display: display === 'none' ? '' : 'none', backgroundColor: '#fbae00'}}>Final Answer</button>

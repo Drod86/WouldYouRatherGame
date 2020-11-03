@@ -9,7 +9,7 @@ class UserInfo extends Component {
         const added = Object.keys(questions).length
         const score = answered + added
         return(
-            <div id='User_Info'>
+            <div id='User_Info'style={{backgroundColor: this.props.score !== true && 'inherit', color: this.props.score !== true && 'white' }}>
                     <img className='avatar' alt='avatar' src={avatarURL} />
                     <h4 className='name'>{name}</h4>
                     {this.props.score && (

@@ -21,7 +21,7 @@ function addNewUser (user) {
 export function handleNewUser ({firstName, lastName, password, avatarUrl}) {
     return (dispatch, getState) => {
         const { users } = getState()
-        const info = { firstName: firstName, lastName: lastName, password: password, avatarUrl: avatarUrl }
+        const info = { firstName: firstName, lastName: lastName, password: password, avatarUrl: avatarUrl === '' ? 'https://flyclipart.com/thumb2/user-profile-avatar-login-account-png-icon-free-download-935697.png' : avatarUrl }
         return saveUser(info)
             .then((user) => {
                 Object.keys(users).includes(user.id)
