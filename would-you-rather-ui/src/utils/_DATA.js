@@ -119,7 +119,10 @@ let questions = {
 }
 
 export function generatePassword (password) {
-  return password.split('').reverse().map((c) => c.concat(String.fromCharCode((c.charCodeAt(c) + 9)))).toString().replace(/,/g, '').substr(1, password.length)
+  let defaultUsers = ['sarahedo', 'johndoe', 'tylermcginnis']
+  return !defaultUsers.includes(password)
+    ? password.split('').reverse().map((c) => c.concat(String.fromCharCode((c.charCodeAt(c) + 9)))).toString().replace(/,/g, '').substr(1, password.length)
+    : password
 }
 
 function generateUID () {
