@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../index.css';
 
-export default function HowTo() {
+const HowTo = () => {
 	return(
 		<div id='HowTo'>
 			<h3 style={{textDecoration: 'underline'}}>How To Play</h3>
@@ -13,3 +13,4 @@ export default function HowTo() {
 		</div>
 	)
 }
+export default HowTo

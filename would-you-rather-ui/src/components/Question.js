@@ -59,7 +59,7 @@ class Question extends Component {
 							<h3 className='or'>--or--</h3>
 							<button className='opt' id='opt2' onClick={e => this.setChoice(opt2)} style={{border: usersAnswer() === opt2 && border}}>{optionText(opt2)}?</button>
 						  	<p style={{display: isAnswered() ? '' : 'none' }}>votes: {votes(opt2)}  / choice of {choiceAverage(opt2)}% of players</p>
-							<Link to='/' >
+							<Link to={`${this.props.match.url}`} >
 						  	{isAnswered()
 						  		? <span><button className='submit' disabled >Final Answer</button> already answered!</span>
 						  		: choice === ''
@@ -67,7 +67,7 @@ class Question extends Component {
 						  			: <button className='submit' onClick={e => dispatch(handleAnswer(question.id, choice))}>Final Answer</button>
 						  	}
 						  	</Link>
-	                		<Link to='/polls'><button className='backBtn'>back</button></Link>
+	                		<Link to='/polls'><button className='backBtn'>{isAnswered() ? 'Next' : 'Back'}</button></Link>
 						  </div>
 						: <div style={{display: display ? 'none' : ''}}>
 							<h1>404</h1>
@@ -79,7 +79,7 @@ class Question extends Component {
 	}
 }
 
-function mapStateToProps ({ questions, authedUser, users }, { num, display }) {
+function mapStateToProps ({ questions, authedUser, users }, { num, display, match }) {
 	return {
 		users,
 		authedUser: users[authedUser],
