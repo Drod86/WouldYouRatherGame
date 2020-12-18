@@ -1,23 +1,20 @@
 import React from 'react'
-import Polls from './Polls'
 import HowTo from './HowTo'
+import Polls from './Polls'
 import Add from './Add'
+import Nav from './Nav'
 import Leaders from './Leaders'
 import Question from './Question'
 import Welcome from './Welcome'
-import Nav from './Nav'
 import '../index.css';
 import {
-	BrowserRouter as Router,
 	Switch,
-	Route,
-	useRouteMatch
+	Route
 } from 'react-router-dom'
 
-const Dashboard = () => {
-	let match = useRouteMatch();
+const Dashboard2 = ({ match }) => {
 	return(
-		<Router >
+		<div>
 			<div className='Dashboard'>
 				<div className='nonMobile polls'>
 					<Polls />
@@ -31,21 +28,20 @@ const Dashboard = () => {
 					</header>
 					<section>
 						<Switch>
-							<Route exact path={match.path} component={HowTo} />
+							<Route path={`${match.path}`}  exact component={HowTo} />
 							<Route path={`${match.path}polls`} component={Polls} />
 							<Route path={`${match.path}add`} component={Add} />
 							<Route path={`${match.path}leaderboard`} component={Leaders} />
-							<Route path={`${match.path}question`} component={Question} />
-						</Switch>
+							<Route path={`${match.path}question/:questionId`} component={Question} />
+						}</Switch>
 					</section>
 				</div>
 				<div className='nonMobile leaders'>
-					<Leaders />
+					<Leaders aside/>
 				</div>
 			</div>
-		</Router>
+		</div>
 	)
 
 }
-
-export default Dashboard
+export default Dashboard2

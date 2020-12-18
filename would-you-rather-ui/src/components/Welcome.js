@@ -4,10 +4,11 @@ import '../index.css';
 
 class Welcome extends Component {
 	render(){
+		const { user } = this.props
 		return(
 			<header className='Welcome'>
-	    		{ this.props.user && (
-	    		<h2>Welcome {this.props.user.name}! Your score: {Object.keys(this.props.user.answers).length + this.props.user.questions.length}</h2>
+	    		{ user && (
+	    		<h2>Welcome {user.name}! Your score: {Object.keys(user.answers).length + user.questions.length}</h2>
 	    		)}
 	    	</header>
 		)
